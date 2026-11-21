@@ -7,13 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fdf8f1; --card:#ffffff; --ink:#2b2a33; --muted:#6f6c7a; --line:#ece6dc;
+  --bg:#fff7fb; --card:#ffffff; --ink:#2b2a33; --muted:#6f6c7a; --line:#f3dbe6;
   --math:#3b7ddd; --ukr:#e0a400; --eng:#d94f6b; --yds:#2f9e6a;
-  --ok:#2f9e6a; --bad:#d94f4f; --accent:#6c5ce7;
+  --ok:#2f9e6a; --bad:#d94f4f; --accent:#0f9e90; --pink:#ff5fa2; --turq:#2cc9b8;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Nunito,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.5}
-header{background:linear-gradient(135deg,#6c5ce7,#8e7cf0);color:#fff;padding:18px 18px 22px}
+header{background:linear-gradient(120deg,#2cc9b8 0%,#5fd6c9 45%,#ff8cbc 100%);color:#fff;padding:16px 128px 20px 18px;display:flex;align-items:center;gap:12px}
+header .ht{flex:1;min-width:0}
+header h1,header p{text-shadow:0 1px 2px rgba(0,0,0,.15)}
 header h1{margin:0;font-size:24px;font-weight:800}
 header p{margin:4px 0 0;opacity:.9;font-size:15px}
 main{max-width:760px;margin:0 auto;padding:16px}
@@ -32,11 +34,11 @@ main{max-width:760px;margin:0 auto;padding:16px}
 .card h3{margin:0 0 8px;font-size:18px}
 .badge{display:inline-block;font-size:13px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;margin-bottom:8px}
 .src{font-size:13px;color:var(--muted);font-weight:700}
-.theory{background:#f6f3ff;border-left:5px solid var(--accent);border-radius:12px;padding:12px 14px;margin:10px 0}
+.theory{background:#effbf9;border-left:5px solid var(--accent);border-radius:12px;padding:12px 14px;margin:10px 0}
 .theory p{margin:6px 0}
 .theory table{border-collapse:collapse;margin:8px 0;font-size:15px}
-.theory td,.theory th{border:1px solid #d9d2f5;padding:4px 8px;text-align:center;background:#fff}
-.theory th{background:#ebe6ff}
+.theory td,.theory th{border:1px solid #b9ebe5;padding:4px 8px;text-align:center;background:#fff}
+.theory th{background:#d5f5f0}
 .theory ol,.theory ul{margin:6px 0;padding-left:22px}
 .col{font-family:ui-monospace,Menlo,Consolas,monospace;background:#fff;border-radius:10px;padding:8px 12px;display:inline-block;line-height:1.6;font-size:15px;white-space:pre}
 .ex{border-top:2px dashed var(--line);padding-top:14px;margin-top:14px}
@@ -44,7 +46,7 @@ main{max-width:760px;margin:0 auto;padding:16px}
 .q{font-weight:700;margin-bottom:8px}
 .opts{display:flex;flex-wrap:wrap;gap:8px}
 .opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 14px;font:inherit;cursor:pointer;color:inherit}
-.opt.sel{border-color:var(--accent);background:#efebff}
+.opt.sel{border-color:var(--accent);background:#ffe6f1}
 .opt.right{border-color:var(--ok);background:#e5f6ee}
 .opt.wrong{border-color:var(--bad);background:#fdeaea}
 input.ans,select.ans{font:inherit;border:2px solid var(--line);border-radius:10px;padding:5px 8px;background:#fff;color:inherit}
@@ -57,23 +59,23 @@ input.ans.wrong,select.ans.wrong,span.ans.wrong{border-color:var(--bad);backgrou
 .row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0}
 .word{font-weight:800;font-size:19px;letter-spacing:.5px;color:var(--accent)}
 .btn{font:inherit;font-weight:800;border:none;border-radius:12px;padding:10px 18px;cursor:pointer;background:var(--accent);color:#fff}
-.btn.ghost{background:#efebff;color:var(--accent)}
+.btn.ghost{background:#ffe6f1;color:var(--accent)}
 details.hint{margin:6px 0 4px;font-size:15px}
 details.hint summary{cursor:pointer;color:var(--accent);font-weight:700}
 details.hint div{background:#fffbea;border:1px solid #f3e3a0;border-radius:10px;padding:8px 10px;margin-top:6px}
 .fb{margin-top:8px;font-weight:700;min-height:1.2em}
 .fb.ok{color:var(--ok)} .fb.no{color:var(--bad)}
-.read{background:#fff;border:2px solid #d9d2f5;border-radius:12px;padding:10px 14px;margin:8px 0;font-size:16px}
+.read{background:#fff;border:2px solid #b9ebe5;border-radius:12px;padding:10px 14px;margin:8px 0;font-size:16px}
 .read ol{margin:4px 0;padding-left:22px}.read li{margin:4px 0}.read .rt{font-weight:800;color:var(--accent);margin:0}
 .rb{margin:6px 0 12px}
 .rdisp{display:inline-block;min-width:120px;min-height:38px;font-size:22px;font-weight:800;letter-spacing:3px;font-family:Georgia,serif;padding:3px 12px}
 .rkeys{display:flex;flex-wrap:wrap;gap:8px}
-.rk{font:inherit;font-family:Georgia,serif;font-size:22px;font-weight:800;width:48px;height:48px;border-radius:12px;border:2px solid #d9d2f5;background:#f6f3ff;color:var(--accent);cursor:pointer}
+.rk{font:inherit;font-family:Georgia,serif;font-size:22px;font-weight:800;width:48px;height:48px;border-radius:12px;border:2px solid #b9ebe5;background:#effbf9;color:var(--accent);cursor:pointer}
 .rk:active{transform:scale(.94)}
 .rk.del{font-family:inherit;font-size:20px;background:#fff;color:var(--muted)}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin:12px 0 6px}
 .fc{font:inherit;font-weight:800;font-size:17px;min-height:64px;border-radius:14px;border:2px solid #f3dfa6;background:#fff;cursor:pointer;color:var(--ink);padding:8px}
-.fc .b{display:none;color:var(--accent)} .fc.flip{background:#efebff;border-color:#d9d2f5} .fc.flip .f{display:none} .fc.flip .b{display:inline}
+.fc .b{display:none;color:var(--accent)} .fc.flip{background:#ffe6f1;border-color:#b9ebe5} .fc.flip .f{display:none} .fc.flip .b{display:inline}
 .test a{color:var(--accent);font-weight:800}
 .hw{background:#fff8e6;border:2px solid #f3dfa6}
 .test{background:#eef6ff;border:2px solid #c8defa}
@@ -84,12 +86,38 @@ details.hint div{background:#fffbea;border:1px solid #f3e3a0;border-radius:10px;
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#2b2a33;color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
 .toast.on{opacity:1}
 textarea.report{width:100%;min-height:140px;font:inherit;font-size:14px;border:2px solid var(--line);border-radius:12px;padding:10px}
+
+#mebar{position:fixed;top:10px;right:10px;z-index:20;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.9);border-radius:999px;padding:4px 12px 4px 4px;text-decoration:none;color:var(--ink);font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.12);flex:none}
+#mebar .mini{width:44px;height:44px;border-radius:50%;overflow:hidden;display:block;background:#fff}
+#mebar .mini svg{width:44px;height:57px;margin-top:-2px}
+#mebar.pop{animation:pop .6s}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+.av-card{display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap;background:linear-gradient(135deg,#e6faf7,#ffe6f1)}
+.av-big{width:170px;flex:none}.av-big svg{width:100%;height:auto;display:block;border-radius:24px;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.av-side{flex:1;min-width:160px}
+.bank{font-size:34px;font-weight:800;color:#e0a400}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin-bottom:4px}
+.cat{font:inherit;font-weight:700;font-size:15px;white-space:nowrap;border:2px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;cursor:pointer;color:var(--ink)}
+.cat.on{background:var(--turq);border-color:var(--turq);color:#fff}
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.item{background:#fff;border:2px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;cursor:pointer}
+.item.trying{border-color:var(--pink);box-shadow:0 0 0 3px #ffd6e8}
+.item b{font-size:15px;line-height:1.25}
+.item small{color:var(--muted);font-size:12px}
+.sw{width:46px;height:46px;border-radius:50%;border:2px solid #eee;display:grid;place-items:center;font-size:26px}
+.sw.emo{border:none;background:#fff4f9}
+.btn.sm{padding:7px 12px;font-size:14px}
+.btn.pink{background:var(--pink)}
+.tag.on{font-weight:800;color:var(--ok);font-size:14px;padding:7px 0}
+.tile.avatar-tile{background:linear-gradient(135deg,#e6faf7,#ffe6f1);border-color:#ffc6de}
+.tile.avatar-tile .ic{background:#fff;overflow:hidden;padding:0}.tile.avatar-tile .ic svg{width:52px;height:68px;margin-top:-4px}
 </style>
 </head>
 <body>
 <header>
-  <h1>👋 Привіт, Поліно!</h1>
-  <p>Тут наші уроки — коли клас навчається в школі, ти навчаєшся разом з нами тут.</p>
+  <div class="ht"><h1>👋 Привіт, Поліно!</h1>
+  <p>Тут наші уроки — коли клас навчається в школі, ти навчаєшся разом з нами тут.</p></div>
+  <a id="mebar" href="#avatar" title="Мій аватар"></a>
 </header>
 <main id="app"></main>
 <div class="toast" id="toast"></div>
@@ -435,9 +463,186 @@ const WEEKS=[1,2,3,4];
 const $app=document.getElementById("app");
 const toast=t=>{const e=document.getElementById("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),2200)};
 
+
+/* ================= ЗІРОЧКИ ================= */
+/* За кожну вправу: 2 ⭐ з першої спроби, 1 ⭐ — якщо вийшло не одразу. За виконаний урок: +3 ⭐. */
+function starsEarned(){
+  let n=0;
+  for(const k in LESSONS){ const r=store[k]; if(!r) continue;
+    for(const i in r.ex){ const e=r.ex[i]; if(e&&e.ok) n+= e.tries===1?2:1; }
+    if(r.done) n+=3;
+  }
+  return n;
+}
+function shop(){ return store.__shop||(store.__shop={owned:[],wear:{},spent:0}); }
+function stars(){ return starsEarned()-shop().spent; }
+function updateBar(){
+  const b=document.getElementById("mebar"); if(!b) return;
+  b.innerHTML=`<span class="mini">${avatarSVG(wearing())}</span><span class="st-count">⭐ ${stars()}</span>`;
+}
+function award(before){ const d=starsEarned()-before; if(d>0){ setTimeout(()=>toast(`+${d} ⭐`),900); popStar(); } updateBar(); }
+function popStar(){ const b=document.getElementById("mebar"); if(!b) return; b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop"); }
+
+/* ================= КРАМНИЧКА ================= */
+const CATS=[
+ {id:"hairStyle",name:"Зачіска",ic:"💇‍♀️"},
+ {id:"hairColor",name:"Колір волосся",ic:"🎨"},
+ {id:"top",name:"Верх",ic:"👚"},
+ {id:"bottom",name:"Низ",ic:"👖"},
+ {id:"shoes",name:"Взуття",ic:"👟"},
+ {id:"acc",name:"Прикраси",ic:"🎀"},
+ {id:"pet",name:"Улюбленець",ic:"🐾"},
+ {id:"bg",name:"Фон",ic:"🌈"}
+];
+const ITEMS=[
+ {id:"hs_long",cat:"hairStyle",name:"Довге волосся",price:0,sw:"〰️"},
+ {id:"hs_bob",cat:"hairStyle",name:"Каре",price:20,sw:"💇‍♀️"},
+ {id:"hs_tails",cat:"hairStyle",name:"Два хвостики",price:30,sw:"🎀"},
+ {id:"hs_buns",cat:"hairStyle",name:"Дві дульки",price:30,sw:"🍡"},
+ {id:"hc_brown",cat:"hairColor",name:"Каштанове",price:0,col:"#7a4b2a"},
+ {id:"hc_blond",cat:"hairColor",name:"Біляве",price:15,col:"#e8c170"},
+ {id:"hc_black",cat:"hairColor",name:"Темне",price:15,col:"#2d2530"},
+ {id:"hc_ginger",cat:"hairColor",name:"Руде",price:20,col:"#d9692b"},
+ {id:"hc_pink",cat:"hairColor",name:"Рожеве",price:45,col:"#ff7eb6"},
+ {id:"hc_turq",cat:"hairColor",name:"Бірюзове",price:45,col:"#2cc9b8"},
+ {id:"hc_purple",cat:"hairColor",name:"Фіолетове",price:45,col:"#9b6bdf"},
+ {id:"top_tee_t",cat:"top",name:"Бірюзова футболка",price:0,col:"#2cc9b8"},
+ {id:"top_tee_p",cat:"top",name:"Рожева футболка",price:10,col:"#ff7eb6"},
+ {id:"top_heart",cat:"top",name:"Светр із серденьком",price:35,col:"#ffd1e3"},
+ {id:"top_hoodie",cat:"top",name:"Бірюзове худі",price:40,col:"#17a99a"},
+ {id:"top_dress_p",cat:"top",name:"Рожева сукня",price:55,col:"#ff5fa2"},
+ {id:"top_dress_t",cat:"top",name:"Бірюзова сукня з зірочками",price:70,col:"#2cc9b8"},
+ {id:"bt_jeans",cat:"bottom",name:"Джинси",price:0,col:"#4a6fa5"},
+ {id:"bt_skirt",cat:"bottom",name:"Рожева спідниця",price:15,col:"#ff7eb6"},
+ {id:"bt_shorts",cat:"bottom",name:"Бірюзові шорти",price:15,col:"#2cc9b8"},
+ {id:"bt_tutu",cat:"bottom",name:"Пишна спідничка",price:35,col:"#ffb3d1"},
+ {id:"sh_white",cat:"shoes",name:"Білі кеди",price:0,col:"#ffffff"},
+ {id:"sh_pink",cat:"shoes",name:"Рожеві кросівки",price:12,col:"#ff5fa2"},
+ {id:"sh_turq",cat:"shoes",name:"Бірюзові черевички",price:12,col:"#17a99a"},
+ {id:"sh_boots",cat:"shoes",name:"Чобітки",price:25,col:"#7a4b2a"},
+ {id:"ac_none",cat:"acc",name:"Без прикрас",price:0,sw:"—"},
+ {id:"ac_bow",cat:"acc",name:"Бантик",price:15,sw:"🎀"},
+ {id:"ac_flower",cat:"acc",name:"Квіточка",price:15,sw:"🌸"},
+ {id:"ac_glasses",cat:"acc",name:"Окуляри",price:25,sw:"👓"},
+ {id:"ac_phones",cat:"acc",name:"Навушники",price:40,sw:"🎧"},
+ {id:"ac_crown",cat:"acc",name:"Корона",price:100,sw:"👑"},
+ {id:"pet_none",cat:"pet",name:"Без улюбленця",price:0,sw:"—"},
+ {id:"pet_cat",cat:"pet",name:"Котик",price:60,sw:"🐱"},
+ {id:"pet_dog",cat:"pet",name:"Цуценя",price:60,sw:"🐶"},
+ {id:"pet_bunny",cat:"pet",name:"Зайчик",price:75,sw:"🐰"},
+ {id:"bg_plain",cat:"bg",name:"Ніжно-рожевий",price:0,col:"#ffe3ef"},
+ {id:"bg_turq",cat:"bg",name:"Бірюзовий",price:10,col:"#c9f3ee"},
+ {id:"bg_stars",cat:"bg",name:"Зоряне небо",price:30,sw:"✨"},
+ {id:"bg_sea",cat:"bg",name:"Море",price:30,sw:"🌊"},
+ {id:"bg_rainbow",cat:"bg",name:"Веселка",price:50,sw:"🌈"}
+];
+const ITEM=Object.fromEntries(ITEMS.map(x=>[x.id,x]));
+const DEFAULT={hairStyle:"hs_long",hairColor:"hc_brown",top:"top_tee_t",bottom:"bt_jeans",shoes:"sh_white",acc:"ac_none",pet:"pet_none",bg:"bg_plain"};
+function wearing(){ return Object.assign({},DEFAULT,shop().wear); }
+function owns(id){ return ITEM[id].price===0 || shop().owned.includes(id); }
+
+/* ================= АВАТАР (SVG) ================= */
+function avatarSVG(w){
+  const hair=ITEM[w.hairColor].col, skin="#f6d2b8", top=ITEM[w.top], bot=ITEM[w.bottom], shoe=ITEM[w.shoes].col;
+  const dress=w.top.startsWith("top_dress"), longSleeve=(w.top==="top_hoodie"||w.top==="top_heart");
+  let s=`<svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">`;
+  // фон
+  const bgc={bg_plain:"#ffe3ef",bg_turq:"#c9f3ee",bg_stars:"#2c2f6b",bg_sea:"#7fd6f2",bg_rainbow:"#fff6fb"}[w.bg];
+  s+=`<rect width="200" height="260" rx="24" fill="${bgc}"/>`;
+  if(w.bg==="bg_stars") s+=[[25,30],[170,25],[40,120],[175,110],[150,60],[20,200],[180,190]].map(([x,y])=>`<text x="${x}" y="${y}" font-size="14" fill="#ffe27a">★</text>`).join("");
+  if(w.bg==="bg_sea") s+=`<rect y="185" width="200" height="75" rx="0" fill="#3cb4d8"/><circle cx="30" cy="60" r="6" fill="#fff" opacity=".6"/><circle cx="170" cy="90" r="8" fill="#fff" opacity=".6"/><circle cx="160" cy="40" r="4" fill="#fff" opacity=".6"/>`;
+  if(w.bg==="bg_rainbow") s+=["#ff7eb6","#ffb86b","#ffe27a","#8fe3a1","#2cc9b8","#9b6bdf"].map((c,i)=>`<path d="M${-10+i*10} 200 A${110-i*10} ${110-i*10} 0 0 1 ${210-i*10} 200" fill="none" stroke="${c}" stroke-width="10" opacity=".55"/>`).join("");
+  // волосся позаду
+  if(w.hairStyle==="hs_long") s+=`<path d="M57 85 Q52 170 72 178 L128 178 Q148 170 143 85 Z" fill="${hair}"/>`;
+  if(w.hairStyle==="hs_bob") s+=`<path d="M56 82 Q53 128 68 130 L132 130 Q147 128 144 82 Z" fill="${hair}"/>`;
+  if(w.hairStyle==="hs_tails") s+=`<ellipse cx="48" cy="112" rx="13" ry="30" fill="${hair}"/><ellipse cx="152" cy="112" rx="13" ry="30" fill="${hair}"/><circle cx="54" cy="84" r="5" fill="#ff5fa2"/><circle cx="146" cy="84" r="5" fill="#ff5fa2"/>`;
+  if(w.hairStyle==="hs_buns") s+=`<circle cx="66" cy="50" r="17" fill="${hair}"/><circle cx="134" cy="50" r="17" fill="${hair}"/>`;
+  // ноги, взуття
+  s+=`<rect x="84" y="196" width="13" height="44" rx="6" fill="${skin}"/><rect x="103" y="196" width="13" height="44" rx="6" fill="${skin}"/>`;
+  if(w.shoes==="sh_boots") s+=`<rect x="81" y="222" width="18" height="22" rx="5" fill="${shoe}"/><rect x="101" y="222" width="18" height="22" rx="5" fill="${shoe}"/>`;
+  s+=`<ellipse cx="89" cy="243" rx="12" ry="7" fill="${shoe}" stroke="#d9cfd6" stroke-width="1.5"/><ellipse cx="111" cy="243" rx="12" ry="7" fill="${shoe}" stroke="#d9cfd6" stroke-width="1.5"/>`;
+  // низ
+  if(!dress){
+    if(w.bottom==="bt_jeans") s+=`<path d="M78 172 L122 172 L120 232 L103 232 L100 192 L97 232 L80 232 Z" fill="${bot.col}"/>`;
+    if(w.bottom==="bt_skirt") s+=`<path d="M78 172 L122 172 L132 212 L68 212 Z" fill="${bot.col}"/>`;
+    if(w.bottom==="bt_shorts") s+=`<path d="M78 172 L122 172 L121 200 L102 200 L100 186 L98 200 L79 200 Z" fill="${bot.col}"/>`;
+    if(w.bottom==="bt_tutu") s+=`<path d="M78 172 L122 172 L138 206 Q129 213 120 206 Q110 214 100 206 Q90 214 80 206 Q71 213 62 206 Z" fill="${bot.col}"/><path d="M74 186 L126 186" stroke="#fff" stroke-width="2" opacity=".6"/>`;
+  }
+  // руки
+  s+=`<rect x="58" y="138" width="13" height="62" rx="6" fill="${skin}" transform="rotate(10 64 138)"/><rect x="129" y="138" width="13" height="62" rx="6" fill="${skin}" transform="rotate(-10 136 138)"/>`;
+  // верх
+  const tc=top.col;
+  if(dress){
+    s+=`<path d="M76 136 L124 136 L128 172 L146 218 L54 218 L72 172 Z" fill="${tc}"/>`;
+    s+=`<path d="M76 136 L62 162 L72 168 L80 150 Z M124 136 L138 162 L128 168 L120 150 Z" fill="${tc}"/>`;
+    if(w.top==="top_dress_t") s+=[[85,185],[112,200],[100,170],[75,205],[125,180]].map(([x,y])=>`<text x="${x}" y="${y}" font-size="11" fill="#fff">★</text>`).join("");
+    else s+=`<path d="M70 196 L130 196" stroke="#fff" stroke-width="3" opacity=".7"/>`;
+  } else {
+    s+=`<path d="M76 136 L124 136 L126 178 L74 178 Z" fill="${tc}"/>`;
+    if(longSleeve) s+=`<rect x="57" y="136" width="15" height="58" rx="7" fill="${tc}" transform="rotate(10 64 138)"/><rect x="128" y="136" width="15" height="58" rx="7" fill="${tc}" transform="rotate(-10 136 138)"/>`;
+    else s+=`<rect x="57" y="136" width="15" height="24" rx="7" fill="${tc}" transform="rotate(10 64 138)"/><rect x="128" y="136" width="15" height="24" rx="7" fill="${tc}" transform="rotate(-10 136 138)"/>`;
+    if(w.top==="top_heart") s+=`<path d="M100 166 C88 156 90 146 98 148 Q100 149 100 152 Q100 149 102 148 C110 146 112 156 100 166 Z" fill="#ff5fa2"/>`;
+    if(w.top==="top_hoodie") s+=`<path d="M86 136 Q100 150 114 136" fill="none" stroke="#0e7f74" stroke-width="3"/><line x1="94" y1="142" x2="93" y2="156" stroke="#fff" stroke-width="2"/><line x1="106" y1="142" x2="107" y2="156" stroke="#fff" stroke-width="2"/><rect x="86" y="160" width="28" height="12" rx="4" fill="#0e7f74" opacity=".5"/>`;
+    if(w.top==="top_tee_t"||w.top==="top_tee_p") s+=`<text x="93" y="164" font-size="14" fill="#fff">★</text>`;
+  }
+  // шия, голова
+  s+=`<rect x="93" y="118" width="14" height="20" rx="5" fill="${skin}"/>`;
+  s+=`<circle cx="59" cy="90" r="7" fill="${skin}"/><circle cx="141" cy="90" r="7" fill="${skin}"/>`;
+  s+=`<circle cx="100" cy="85" r="41" fill="${skin}"/>`;
+  // чубчик
+  s+=`<path d="M58 84 Q58 40 100 40 Q142 40 142 84 Q132 62 112 60 Q104 70 90 64 Q72 62 58 84 Z" fill="${hair}"/>`;
+  // обличчя
+  s+=`<circle cx="85" cy="90" r="5" fill="#2d2530"/><circle cx="115" cy="90" r="5" fill="#2d2530"/><circle cx="86.5" cy="88" r="1.6" fill="#fff"/><circle cx="116.5" cy="88" r="1.6" fill="#fff"/>`;
+  s+=`<ellipse cx="76" cy="102" rx="7" ry="4" fill="#ff9fc4" opacity=".7"/><ellipse cx="124" cy="102" rx="7" ry="4" fill="#ff9fc4" opacity=".7"/>`;
+  s+=`<path d="M90 106 Q100 116 110 106" fill="none" stroke="#c2456f" stroke-width="3" stroke-linecap="round"/>`;
+  // прикраси
+  if(w.acc==="ac_bow") s+=`<path d="M118 50 L106 40 L106 60 Z M118 50 L130 40 L130 60 Z" fill="#ff5fa2"/><circle cx="118" cy="50" r="4" fill="#ff2e86"/>`;
+  if(w.acc==="ac_flower") s+=[0,72,144,216,288].map(a=>`<circle cx="${124+7*Math.cos(a*Math.PI/180)}" cy="${52+7*Math.sin(a*Math.PI/180)}" r="5.5" fill="#ff9fc4"/>`).join("")+`<circle cx="124" cy="52" r="4" fill="#ffe27a"/>`;
+  if(w.acc==="ac_glasses") s+=`<circle cx="85" cy="90" r="10" fill="none" stroke="#17a99a" stroke-width="3"/><circle cx="115" cy="90" r="10" fill="none" stroke="#17a99a" stroke-width="3"/><path d="M95 90 L105 90" stroke="#17a99a" stroke-width="3"/>`;
+  if(w.acc==="ac_phones") s+=`<path d="M56 88 Q56 34 100 34 Q144 34 144 88" fill="none" stroke="#ff5fa2" stroke-width="6"/><rect x="48" y="80" width="14" height="22" rx="6" fill="#2cc9b8"/><rect x="138" y="80" width="14" height="22" rx="6" fill="#2cc9b8"/>`;
+  if(w.acc==="ac_crown") s+=`<path d="M74 46 L78 22 L90 36 L100 18 L110 36 L122 22 L126 46 Z" fill="#ffd34d" stroke="#e0a400" stroke-width="2"/><circle cx="100" cy="36" r="3.5" fill="#ff5fa2"/><circle cx="84" cy="40" r="2.5" fill="#2cc9b8"/><circle cx="116" cy="40" r="2.5" fill="#2cc9b8"/>`;
+  // улюбленці
+  if(w.pet==="pet_cat") s+=`<g transform="translate(142 186) scale(1.3)"><ellipse cx="14" cy="32" rx="16" ry="12" fill="#f4a259"/><circle cx="14" cy="14" r="12" fill="#f4a259"/><path d="M4 6 L5 -6 L12 4 Z M24 6 L23 -6 L16 4 Z" fill="#f4a259"/><circle cx="10" cy="13" r="2" fill="#2d2530"/><circle cx="18" cy="13" r="2" fill="#2d2530"/><path d="M12 18 Q14 20 16 18" stroke="#2d2530" fill="none"/><path d="M29 30 Q40 20 34 12" stroke="#f4a259" stroke-width="4" fill="none" stroke-linecap="round"/></g>`;
+  if(w.pet==="pet_dog") s+=`<g transform="translate(140 186) scale(1.3)"><ellipse cx="16" cy="34" rx="17" ry="12" fill="#c98b5a"/><circle cx="16" cy="16" r="13" fill="#e0b083"/><ellipse cx="4" cy="16" rx="5" ry="10" fill="#8a5a36"/><ellipse cx="28" cy="16" rx="5" ry="10" fill="#8a5a36"/><circle cx="12" cy="14" r="2" fill="#2d2530"/><circle cx="20" cy="14" r="2" fill="#2d2530"/><ellipse cx="16" cy="20" rx="3" ry="2" fill="#2d2530"/></g>`;
+  if(w.pet==="pet_bunny") s+=`<g transform="translate(142 184) scale(1.3)"><ellipse cx="14" cy="36" rx="15" ry="11" fill="#fff" stroke="#e7dbe3"/><circle cx="14" cy="20" r="11" fill="#fff" stroke="#e7dbe3"/><ellipse cx="9" cy="2" rx="4" ry="12" fill="#fff" stroke="#e7dbe3"/><ellipse cx="19" cy="2" rx="4" ry="12" fill="#fff" stroke="#e7dbe3"/><ellipse cx="9" cy="3" rx="1.8" ry="8" fill="#ffc2da"/><ellipse cx="19" cy="3" rx="1.8" ry="8" fill="#ffc2da"/><circle cx="10" cy="19" r="1.8" fill="#2d2530"/><circle cx="18" cy="19" r="1.8" fill="#2d2530"/><circle cx="14" cy="23" r="1.6" fill="#ff7eb6"/></g>`;
+  return s+`</svg>`;
+}
+
+/* ================= СТОРІНКА «МІЙ АВАТАР» ================= */
+let tryOn={}, curCat="top";
+function avatarPage(){
+  const w=Object.assign(wearing(),tryOn), sh=shop();
+  const items=ITEMS.filter(x=>x.cat===curCat);
+  let html=`<div class="crumbs"><a href="#">🏠 Тижні</a> › Мій аватар</div>
+  <div class="card av-card"><div class="av-big">${avatarSVG(w)}</div>
+   <div class="av-side"><div class="bank">⭐ ${stars()}</div><p class="note">Зірочки ти отримуєш за вправи: <b>2 ⭐</b> — якщо правильно з першої спроби, <b>1 ⭐</b> — якщо з другої. За кожен виконаний урок — ще <b>+3 ⭐</b>.</p>
+   ${Object.keys(tryOn).length?`<button class="btn ghost" onclick="tryOn={};avatarPage()">↩ Зняти приміряне</button>`:""}</div></div>
+  <div class="cats">${CATS.map(c=>`<button class="cat ${c.id===curCat?"on":""}" onclick="curCat='${c.id}';avatarPage()">${c.ic} ${c.name}</button>`).join("")}</div>
+  <div class="shop">${items.map(it=>{
+    const own=owns(it.id), worn=wearing()[it.cat]===it.id, trying=tryOn[it.cat]===it.id;
+    const sw=it.col?`<span class="sw" style="background:${it.col}"></span>`:`<span class="sw emo">${it.sw}</span>`;
+    let act;
+    if(worn) act=`<span class="tag on">✓ Вдягнуто</span>`;
+    else if(own) act=`<button class="btn sm" onclick="wearIt('${it.id}')">Вдягнути</button>`;
+    else act=`<button class="btn sm pink" onclick="buy('${it.id}')">Купити ⭐ ${it.price}</button>`;
+    return `<div class="item ${trying?"trying":""}" onclick="if(event.target.tagName!=='BUTTON'){tryIt('${it.id}')}">${sw}<b>${it.name}</b>${!own?`<small>приміряй — натисни</small>`:""}${act}</div>`;
+  }).join("")}</div>`;
+  $app.innerHTML=html;
+}
+function tryIt(id){ const it=ITEM[id]; if(wearing()[it.cat]===id) delete tryOn[it.cat]; else tryOn[it.cat]=id; avatarPage(); }
+function wearIt(id){ const it=ITEM[id]; shop().wear[it.cat]=id; delete tryOn[it.cat]; save(); updateBar(); avatarPage(); }
+function buy(id){
+  const it=ITEM[id];
+  if(stars()<it.price){ toast(`Потрібно ще ⭐ ${it.price-stars()} — виконуй завдання! 💪`); return; }
+  const sh=shop(); sh.owned.push(id); sh.spent+=it.price; sh.wear[it.cat]=id; delete tryOn[it.cat]; save(); updateBar(); toast(`Ура! «${it.name}» — твоє! 🎉`); avatarPage();
+}
+
 /* ================= МАРШРУТИ (#w1, #w1-mon, #w1-mon-math) ================= */
 function route(){
   const h=location.hash.slice(1);
+  updateBar();
+  if(h==="avatar") return avatarPage();
+  tryOn={};
   const m=h.match(/^w(\d+)(?:-(\w+))?(?:-(\w+))?$/);
   if(!m) return home();
   const w=+m[1], d=m[2], s=m[3];
@@ -455,13 +660,14 @@ function lessonState(w,d,s){
 const mainEx = L => L.ex.filter(e=>!e.hw);
 
 function home(){
-  let html=`<h2 style="margin:4px 0 12px">Обери тиждень</h2><div class="grid">`;
+  let html=`<a class="tile avatar-tile" href="#avatar" style="margin-bottom:16px"><span class="ic">${avatarSVG(wearing())}</span><span><b>Мій аватар</b><small>У тебе ⭐ ${stars()} — загляни в крамничку!</small></span><span class="st">🛍️</span></a>
+  <h2 style="margin:4px 0 12px">Обери тиждень</h2><div class="grid">`;
   WEEKS.forEach(w=>{
     let tot=0,dn=0,any=false;
     DAYS.forEach(d=>d.subj.forEach(s=>{const st=lessonState(w,d.id,s); if(st!=="soon"){any=true;tot++; if(st==="done")dn++;}}));
     const range=weekRange(w);
     html+=`<a class="tile ${any?"":"soon"}" href="#w${w}">
-      <span class="ic" style="background:#efebff">📅</span>
+      <span class="ic" style="background:#ffe6f1">📅</span>
       <span><b>Тиждень ${w}</b><small>${range?range+" · ":""}${any?`виконано ${dn} з ${tot}`:"скоро з'явиться"}</small>
       ${any?`<div class="prog" style="width:160px"><i style="width:${tot?dn/tot*100:0}%"></i></div>`:""}</span>
       <span class="st">${any&&dn===tot?"⭐":"›"}</span></a>`;
@@ -481,7 +687,7 @@ function week(w){
     const avail=sts.filter(x=>x!=="soon").length, dn=sts.filter(x=>x==="done").length;
     const dt=dayDate(w,i);
     html+=`<a class="tile ${avail?"":"soon"}" href="#w${w}-${d.id}">
-      <span class="ic" style="background:#efebff">${d.short}</span>
+      <span class="ic" style="background:#ffe6f1">${d.short}</span>
       <span><b>${d.name}${dt?`, ${fmt(dt)}`:""}</b><small>${d.subj.map(s=>SUBJ[s].ic).join(" ")} · ${avail?`${dn}/${avail} виконано`:"скоро"}</small></span>
       <span class="st">${avail&&dn===avail?"✅":"›"}</span></a>`;
   });
@@ -580,8 +786,9 @@ function check(i){
     });
   }
   if(empty){ fb.className="fb no"; fb.textContent="Заповни всі віконця 🙂"; return; }
+  const before=starsEarned();
   const r=rec(key); const er=r.ex[i]||(r.ex[i]={tries:0,ok:false});
-  er.tries++; if(ok) er.ok=true; save();
+  er.tries++; if(ok) er.ok=true; save(); award(before);
   fb.className="fb "+(ok?"ok":"no");
   fb.textContent= ok ? ["Молодчинка! 🎉","Правильно! ⭐","Чудово! 👏","Супер! 🌟"][i%4] : (e.hint?"Майже! Червоні віконця виправ — і загляни в підказку 💡":"Майже! Подумай ще раз і спробуй знову 💪");
 }
@@ -591,7 +798,8 @@ function finish(key){
   const idx=L.ex.map((e,i)=>e.hw?-1:i).filter(i=>i>=0);
   const solved=idx.filter(i=>r.ex[i]&&r.ex[i].ok).length;
   if(solved<idx.length){ toast(`Виконано ${solved} з ${idx.length} вправ — доробимо?`); return; }
-  r.done=true; r.date=new Date().toLocaleDateString("uk-UA"); save(); toast("Урок виконано! 🌟"); route();
+  const before=starsEarned();
+  r.done=true; r.date=new Date().toLocaleDateString("uk-UA"); save(); toast("Урок виконано! 🌟"); award(before); route();
 }
 
 function report(){
@@ -607,6 +815,7 @@ function report(){
     lines.push(`Тиждень ${w}, ${d.name} — ${SUBJ[s].name}: ${t}${exs}${hw}${r.done?" · урок ✅":""}`);
   })));
   if(lines.length===1) lines.push("Поки що немає виконаних уроків.");
+  else lines.push(`Зароблено зірочок: ⭐ ${starsEarned()}`);
   const t=lines.join("\n"), ta=document.getElementById("rep"); ta.style.display="block"; ta.value=t;
   if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>toast("Скопійовано! Встав у месенджер"),()=>{ta.select();toast("Виділи текст і скопіюй")});
   else ta.select();
