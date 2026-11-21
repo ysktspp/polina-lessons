@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Клас Поліни — уроки онлайн</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdf8f1; --card:#ffffff; --ink:#2b2a33; --muted:#6f6c7a; --line:#ece6dc;
+  --math:#3b7ddd; --ukr:#e0a400; --eng:#d94f6b; --yds:#2f9e6a;
+  --ok:#2f9e6a; --bad:#d94f4f; --accent:#6c5ce7;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Nunito,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.5}
+header{background:linear-gradient(135deg,#6c5ce7,#8e7cf0);color:#fff;padding:18px 18px 22px}
+header h1{margin:0;font-size:24px;font-weight:800}
+header p{margin:4px 0 0;opacity:.9;font-size:15px}
+main{max-width:760px;margin:0 auto;padding:16px}
+.crumbs{font-size:14px;color:var(--muted);margin:4px 0 14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.crumbs a{color:var(--accent);text-decoration:none;font-weight:700}
+.grid{display:grid;gap:12px}
+.tile{display:flex;align-items:center;gap:14px;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px;text-decoration:none;color:inherit;transition:transform .1s}
+.tile:active{transform:scale(.98)}
+.tile .ic{font-size:26px;font-weight:800;width:52px;height:52px;border-radius:14px;display:grid;place-items:center;flex:none;color:var(--accent)}
+.tile b{display:block;font-size:19px}
+.tile small{color:var(--muted);font-size:14px}
+.tile .st{margin-left:auto;font-size:22px}
+.soon{opacity:.55}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+.card h2{margin:0 0 8px;font-size:21px}
+.card h3{margin:0 0 8px;font-size:18px}
+.badge{display:inline-block;font-size:13px;font-weight:800;color:#fff;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+.src{font-size:13px;color:var(--muted);font-weight:700}
+.theory{background:#f6f3ff;border-left:5px solid var(--accent);border-radius:12px;padding:12px 14px;margin:10px 0}
+.theory p{margin:6px 0}
+.theory table{border-collapse:collapse;margin:8px 0;font-size:15px}
+.theory td,.theory th{border:1px solid #d9d2f5;padding:4px 8px;text-align:center;background:#fff}
+.theory th{background:#ebe6ff}
+.theory ol,.theory ul{margin:6px 0;padding-left:22px}
+.col{font-family:ui-monospace,Menlo,Consolas,monospace;background:#fff;border-radius:10px;padding:8px 12px;display:inline-block;line-height:1.6;font-size:15px;white-space:pre}
+.ex{border-top:2px dashed var(--line);padding-top:14px;margin-top:14px}
+.ex.first{border-top:none;padding-top:0;margin-top:0}
+.q{font-weight:700;margin-bottom:8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:12px;padding:9px 14px;font:inherit;cursor:pointer;color:inherit}
+.opt.sel{border-color:var(--accent);background:#efebff}
+.opt.right{border-color:var(--ok);background:#e5f6ee}
+.opt.wrong{border-color:var(--bad);background:#fdeaea}
+input.ans,select.ans{font:inherit;border:2px solid var(--line);border-radius:10px;padding:5px 8px;background:#fff;color:inherit}
+input.ans{width:110px}
+input.ans.sm{width:72px;text-align:center}
+input.ans.wide{width:100%;max-width:340px}
+span.ans{border:2px solid var(--line);border-radius:10px;background:#fff}
+input.ans.right,select.ans.right,span.ans.right{border-color:var(--ok);background:#e5f6ee}
+input.ans.wrong,select.ans.wrong,span.ans.wrong{border-color:var(--bad);background:#fdeaea}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0}
+.word{font-weight:800;font-size:19px;letter-spacing:.5px;color:var(--accent)}
+.btn{font:inherit;font-weight:800;border:none;border-radius:12px;padding:10px 18px;cursor:pointer;background:var(--accent);color:#fff}
+.btn.ghost{background:#efebff;color:var(--accent)}
+details.hint{margin:6px 0 4px;font-size:15px}
+details.hint summary{cursor:pointer;color:var(--accent);font-weight:700}
+details.hint div{background:#fffbea;border:1px solid #f3e3a0;border-radius:10px;padding:8px 10px;margin-top:6px}
+.fb{margin-top:8px;font-weight:700;min-height:1.2em}
+.fb.ok{color:var(--ok)} .fb.no{color:var(--bad)}
+.read{background:#fff;border:2px solid #d9d2f5;border-radius:12px;padding:10px 14px;margin:8px 0;font-size:16px}
+.read ol{margin:4px 0;padding-left:22px}.read li{margin:4px 0}.read .rt{font-weight:800;color:var(--accent);margin:0}
+.rb{margin:6px 0 12px}
+.rdisp{display:inline-block;min-width:120px;min-height:38px;font-size:22px;font-weight:800;letter-spacing:3px;font-family:Georgia,serif;padding:3px 12px}
+.rkeys{display:flex;flex-wrap:wrap;gap:8px}
+.rk{font:inherit;font-family:Georgia,serif;font-size:22px;font-weight:800;width:48px;height:48px;border-radius:12px;border:2px solid #d9d2f5;background:#f6f3ff;color:var(--accent);cursor:pointer}
+.rk:active{transform:scale(.94)}
+.rk.del{font-family:inherit;font-size:20px;background:#fff;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin:12px 0 6px}
+.fc{font:inherit;font-weight:800;font-size:17px;min-height:64px;border-radius:14px;border:2px solid #f3dfa6;background:#fff;cursor:pointer;color:var(--ink);padding:8px}
+.fc .b{display:none;color:var(--accent)} .fc.flip{background:#efebff;border-color:#d9d2f5} .fc.flip .f{display:none} .fc.flip .b{display:inline}
+.test a{color:var(--accent);font-weight:800}
+.hw{background:#fff8e6;border:2px solid #f3dfa6}
+.test{background:#eef6ff;border:2px solid #c8defa}
+.done-btn{width:100%;margin-top:6px;padding:14px}
+.prog{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:6px}
+.prog i{display:block;height:100%;background:var(--ok)}
+.note{font-size:14px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#2b2a33;color:#fff;padding:10px 18px;border-radius:12px;font-weight:700;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+textarea.report{width:100%;min-height:140px;font:inherit;font-size:14px;border:2px solid var(--line);border-radius:12px;padding:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>👋 Привіт, Поліно!</h1>
+  <p>Тут наші уроки — коли клас навчається в школі, ти навчаєшся разом з нами тут.</p>
+</header>
+<main id="app"></main>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= НАЛАШТУВАННЯ ================= */
+const SUBJ = {
+  math:{name:"Математика", ic:"🔢", c:"var(--math)", bg:"#e8f0fc"},
+  ukr: {name:"Українська мова", ic:"✍️", c:"var(--ukr)", bg:"#fdf3d6"},
+  eng: {name:"Англійська мова", ic:"🔤", c:"var(--eng)", bg:"#fbe5ea"},
+  yds: {name:"Я досліджую світ", ic:"🌍", c:"var(--yds)", bg:"#e3f4ec"}
+};
+const DAYS = [
+  {id:"mon", name:"Понеділок", short:"Пн", subj:["math","ukr"]},
+  {id:"tue", name:"Вівторок",  short:"Вт", subj:["math","ukr","eng","yds"]},
+  {id:"wed", name:"Середа",    short:"Ср", subj:["math","ukr","eng"]},
+  {id:"thu", name:"Четвер",    short:"Чт", subj:["math","ukr","yds"]},
+  {id:"fri", name:"П'ятниця",  short:"Пт", subj:["math","ukr","eng","yds"]}
+];
+/* Понеділок кожного тижня (рік, місяць 1–12, день) */
+const WEEK_START = { 1:[2026,11,23] };
+const MONTHS = ["січня","лютого","березня","квітня","травня","червня","липня","серпня","вересня","жовтня","листопада","грудня"];
+function dayDate(w,i){ const s=WEEK_START[w]; if(!s) return null; const d=new Date(s[0],s[1]-1,s[2]+i); return d; }
+function fmt(d){ return d.getDate()+" "+MONTHS[d.getMonth()]; }
+function weekRange(w){ const a=dayDate(w,0), b=dayDate(w,4); if(!a) return ""; return a.getMonth()===b.getMonth() ? `${a.getDate()}–${b.getDate()} ${MONTHS[b.getMonth()]}` : `${fmt(a)} – ${fmt(b)}`; }
+
+/* ================= УРОКИ =================
+   Ключ: "тиждень-день-предмет".
+   Типи вправ:
+   choice — вибір однієї відповіді;   tf — правда / неправда;
+   fill   — рядки з віконцями: [[відповідь]] (кілька правильних — через |);
+   select — випадні списки: [підпис, [варіанти], номер правильного].
+   hint — підказка до вправи;  hw:true — вправа для перевірки домашнього. */
+const LESSONS = {
+
+"1-mon-math":{
+  topic:"Задачі на обчислення часу в межах століття",
+  src:"Підручник: с. 79–80",
+  summary:"Вчимося рахувати, скільки часу минуло між двома датами: скільки років прожила людина, скільки часу пройшло між подіями.",
+  theory:`<p><b>Пригадай:</b> 1 рік = 12 місяців, 1 століття = 100 років.</p>
+  <p><b>Як порахувати час між двома датами:</b></p>
+  <ol>
+   <li>Для кожної дати запиши, скільки <b>повних</b> років, місяців і днів минуло від початку літочислення. Для дати <i>9 березня 1814 р.</i> це <b>1813 р. 2 міс. 8 днів</b> — бо 1814-й рік ще не закінчився, пройшли тільки січень і лютий, а від березня — 8 повних днів.</li>
+   <li>Від пізнішої дати віднімаємо ранішу — <b>стовпчиком</b>: дні від днів, місяці від місяців, роки від років.</li>
+  </ol>
+  <p><b>Приклад.</b> Т. Г. Шевченко народився 9 березня 1814 р., а помер 10 березня 1861 р.</p>
+  <div class="col">– 1860 р.  2 міс.  9 днів
+  1813 р.  2 міс.  8 днів
+  ─────────────────────────
+    47 р.  0 міс.  1 день</div>
+  <p>Тарас Шевченко прожив <b>47 років і 1 день</b>.</p>
+  <p>💡 Якщо треба знайти <b>кінець</b> події — додаємо, якщо <b>початок</b> — віднімаємо.</p>`,
+  ex:[
+    {type:"fill", q:"Обчисли усно (№1). Скільки це років і місяців?",
+     hint:"12 місяців = 1 рік. Від числа місяців віднімай по 12: 25 міс. = 12 + 12 + 1, тобто 2 р. 1 міс.",
+     lines:["13 міс. = [[1]] р. [[1]] міс.","18 міс. = [[1]] р. [[6]] міс.","25 міс. = [[2]] р. [[1]] міс.","33 міс. = [[2]] р. [[9]] міс."]},
+    {type:"fill", q:"Т. Г. Шевченко народився 9 березня 1814 року. Коли йому виповнилося 47 років і 1 день? (№2-Б)",
+     hint:"Додай стовпчиком: 1813 р. 2 міс. 8 днів + 47 р. 0 міс. 1 день. Вийде, скільки часу минуло — а сама подія відбулася в наступному році, наступному місяці й наступного дня.",
+     lines:["Минуло: [[1860]] р. [[2]] міс. [[9]] днів","Подія відбулася [[10]] березня [[1861]] року."]},
+    {type:"fill", q:"Олег народився 5 квітня 2014 року. Скільки йому років, якщо сьогодні 10 листопада 2021 року? (№3)",
+     hint:"5 квітня 2014 р.: повних років — 2013, повних місяців — 3 (січень, лютий, березень), днів — 4. Так само для 10 листопада 2021 р. Потім відніми стовпчиком.",
+     lines:["5 квітня 2014 р. → [[2013]] р. [[3]] міс. [[4]] дн.","10 листопада 2021 р. → [[2020]] р. [[10]] міс. [[9]] дн.","Олегові: [[7]] р. [[7]] міс. [[5]] дн."]},
+    {type:"fill", q:"Цікаві факти про Т. Шевченка (№4). Прочитай факти. Який тебе зацікавив найбільше? Потім запиши числівники цифрами.",
+     text:`<p class="rt">📖 Математична цікавинка</p><ol>
+      <li>Тарас Шевченко був невисокого зросту — приблизно сто шістдесят п'ять сантиметрів.</li>
+      <li>Тисяча триста вісімдесят чотири — саме стільки пам'ятників Тарасові Шевченку встановлено у світі.</li>
+      <li>Найвідомішій книжці поета — «Кобзар» — у Черкасах присвячений цілий музей. Збірку перекладено на понад сто мов.</li>
+      <li>Тарас Шевченко знаний серед його сучасників передусім як художник. На сьогодні збереглося вісімсот тридцять п'ять його художніх робіт.</li>
+      <li>Дві тисячі п'ятсот рублів — еквівалент сорока п'яти кілограмів срібла — саме стільки було витрачено на викуп поета з кріпацтва у тисяча вісімсот тридцять восьмому році.</li>
+      <li>В Україні налічується сто шістдесят чотири населені пункти, названі на честь Тараса Шевченка.</li>
+      <li>У тисяча дев'ятсот сімдесят п'ятому році один із кратерів на планеті Меркурій було названо на честь Тараса Григоровича Шевченка.</li></ol>`,
+     lines:["Зріст — приблизно сто шістдесят п'ять сантиметрів: [[165]] см",
+            "Пам'ятників у світі — тисяча триста вісімдесят чотири: [[1384]]",
+            "Збереглося художніх робіт — вісімсот тридцять п'ять: [[835]]",
+            "Викупили з кріпацтва в тисяча вісімсот тридцять восьмому році: [[1838]] р.",
+            "Збірку «Кобзар» перекладено на понад сто мов: [[100]]",
+            "На викуп витратили дві тисячі п'ятсот рублів: [[2500]] руб.",
+            "Це сорок п'ять кілограмів срібла: [[45]] кг",
+            "Населених пунктів на честь Шевченка — сто шістдесят чотири: [[164]]",
+            "Кратер на Меркурії назвали в тисяча дев'ятсот сімдесят п'ятому році: [[1975]] р."]},
+    {type:"fill", q:"Юрій Гагарін полетів у космос 12 квітня 1961 року, а Ніл Армстронг ступив на Місяць 21 липня 1969 року. Скільки часу минуло між цими подіями? (№5)",
+     hint:"12 квітня 1961 р. → 1960 р. 3 міс. 11 днів. 21 липня 1969 р. → скільки повних років, місяців (січень…червень) і днів?",
+     lines:["12 квітня 1961 р. → [[1960]] р. [[3]] міс. [[11]] дн.","21 липня 1969 р. → [[1968]] р. [[6]] міс. [[20]] дн.","Минуло: [[8]] р. [[3]] міс. [[9]] дн."]},
+    {type:"roman", q:"Римські цифри (№6). Склади числа з римських цифр — натискай на потрібні кнопки. А потім запиши римські числа арабськими цифрами.",
+     hint:"I = 1, V = 5, X = 10, L = 50, C = 100. Менша цифра перед більшою — віднімаємо (IV = 4, XC = 90), після більшої — додаємо (XI = 11). Одна й та сама цифра може стояти поспіль не більше трьох разів. Помилилась — натисни ⌫.",
+     build:[[93,"XCIII"],[67,"LXVII"],[19,"XIX"]],
+     lines:["XXXVIII = [[38]]","XLVI = [[46]]","CXXIV = [[124]]"]},
+    {type:"fill", hw:true, q:"Перевір своє домашнє (с. 80, №7): скільки тортів спече майстерня в серпні?",
+     lines:["У серпні — [[64]] торти"]}
+  ],
+  hw:"<b>Підручник, с. 80, №7.</b> Кондитерська майстерня в березні спекла 2 торти, у квітні — 4, у травні — 8, у червні — 16, у липні — 32. Знайди закономірність і дізнайся, скільки тортів вона спече в серпні. Розв'яжи в зошиті, а потім перевір відповідь тут 👇"
+},
+
+"1-mon-ukr":{
+  topic:"Будова слова. Підготовка до діагностувальної роботи",
+  src:"Підручник: с. 77–80, 88",
+  summary:"Повторюємо будову слова і готуємося до діагностувальної роботи, яка буде у вівторок.",
+  theory:`<p><b>Частини слова</b></p>
+  <table>
+   <tr><th>Частина</th><th>Що це</th><th>Знак</th></tr>
+   <tr><td><b>Префікс</b></td><td>стоїть перед коренем</td><td>⌐</td></tr>
+   <tr><td><b>Корінь</b></td><td>головна частина слова, спільна для споріднених слів</td><td>⌒</td></tr>
+   <tr><td><b>Суфікс</b></td><td>після кореня, перед закінченням</td><td>^</td></tr>
+   <tr><td><b>Закінчення</b></td><td>змінна частина слова</td><td>□</td></tr>
+   <tr><td><b>Основа</b></td><td>слово без закінчення</td><td>___</td></tr>
+  </table>
+  <p><b>Як розібрати слово за будовою</b></p>
+  <ol>
+   <li>Назви слово.</li>
+   <li>Зміни форму слова (постав питання) — і визнач <b>закінчення</b>. Основа — усе, крім закінчення.</li>
+   <li>Добери споріднені слова — і визнач <b>корінь</b>.</li>
+   <li>Визнач <b>префікс</b> і <b>суфікс</b>, якщо вони є.</li>
+  </ol>
+  <p>Наприклад: <i>під-вод-н-ий</i> — префікс <b>під</b>, корінь <b>вод</b>, суфікс <b>н</b>, закінчення <b>ий</b>.</p>
+  <p>💡 Якщо слово змінюється, а в кінці нічого не змінюється (<i>ліс — лісу — лісом</i>), то в називному відмінку закінчення <b>нульове</b> □.</p>
+  <p><b>Спорідненими</b> є слова з однаковим коренем і близькі за значенням: <i>вода — водний — підводний</i>. А <i>водити</i> — не споріднене, бо значення інше!</p>
+  <p>💡 У коренях споріднених слів можуть чергуватися звуки: <b>г — ж — з</b> (дорога — доріжка — у дорозі), <b>к — ч — ц</b> (молоко — молочний — у молоці), <b>х — ш — с</b> (муха — мушка — на мусі).</p>
+  <p><b>Префікси з- і с-.</b> Перед буквами <b>к, п, т, ф, х</b> пишемо <b>с-</b>, перед усіма іншими — <b>з-</b>. Запам'ятай: «<b>Кафе «Птах»</b>»: <i>сказати, сфотографувати, сховати</i>, але <i>зробити, зшити, зчесати</i>.</p>
+  <p><b>Складні слова</b> мають два корені, які з'єднуються буквами <b>о</b> або <b>е</b>: <i>мухоловка</i> = муха + ловити, <i>книголюб</i> = книга + любити, <i>вогнегасник</i> = вогонь + гасити.</p>
+  <p><b>Апостроф після префікса</b> пишемо перед <b>я, ю, є, ї</b>: <i>роз'їзд, з'їсти, об'єднання</i>.</p>`,
+  ex:[
+    {type:"choice", q:"Яке слово НЕ споріднене з іншими? Вода, водний, заводнений, водити",
+     hint:"Споріднені слова мають однаковий корінь і близьке значення. Чи пов'язане значення кожного слова з водою?",
+     options:["водний","заводнений","водити"], answer:2},
+    {type:"choice", q:"Яке слово НЕ споріднене з іншими? Дорога, дорожній, дорогий, доріженька",
+     hint:"Подумай про значення: дорога, якою їдуть, і дорогий — який багато коштує.",
+     options:["дорожній","дорогий","доріженька"], answer:1},
+    {type:"select", q:"Розбери за будовою слово <span class='word'>підводний</span>",
+     hint:"Зміни форму: підводн<b>ого</b>, підводн<b>им</b> — що змінюється? Споріднені: вода, водичка — який спільний корінь?",
+     items:[["Префікс:",["немає","під","вод","н","ий"],1],["Корінь:",["під","вод","водн","н"],1],["Суфікс:",["немає","під","н","ий"],2],["Закінчення:",["нульове","н","ий","ний"],2]]},
+    {type:"select", q:"Розбери за будовою слово <span class='word'>підсніжник</span>",
+     hint:"Зміни форму: підсніжник — підсніжник<b>а</b> — підсніжник<b>ом</b>. У називному відмінку в кінці нічого немає — отже, закінчення нульове. Споріднені: сніг, сніжок (г — ж чергуються).",
+     items:[["Префікс:",["немає","під","сніж","ник"],1],["Корінь:",["під","сніг","сніж","ник"],2],["Суфікс:",["немає","сніж","ник","ік"],2],["Закінчення:",["нульове","к","ик","ник"],0]]},
+    {type:"select", q:"Розбери за будовою слово <span class='word'>водичка</span>",
+     hint:"Зміни форму: водичк<b>и</b>, водичк<b>ою</b>. Корінь — як у слові «вода».",
+     items:[["Префікс:",["немає","во","вод"],0],["Корінь:",["во","вод","водич","ичк"],1],["Суфікс:",["немає","ич","ичк","а"],2],["Закінчення:",["нульове","а","ка"],1]]},
+    {type:"select", q:"З- чи с-? Обери префікс.",
+     hint:"Пам'ятай «Кафе «Птах»»: перед к, п, т, ф, х — с-, перед іншими буквами — з-.",
+     items:[["…формувати",["з","с"],1],["…хотіти",["з","с"],1],["…казати",["з","с"],1],["…чесати",["з","с"],0],["…ховати",["з","с"],1],["…шивати",["з","с"],0]]},
+    {type:"fill", hw:true, q:"Перевір домашнє — с. 88, вправа 3. Які складні слова в тебе вийшли?",
+     hint:"Два корені з'єднуються буквою о або е. Наприклад: місяць + ходити = місяцехід.",
+     lines:["Свині + пасти = [[свинопас]]","Земля + трусити = [[землетрус]]","Ясний + очі = [[ясноокий|ясноока|ясноокі]]","Місяць + ходити = [[місяцехід]]","Хліб + робити = [[хлібороб]]"]}
+  ],
+  hw:`<b>Підручник, с. 88, вправа 3.</b> Утвори складні слова, використовуючи підказки, і запиши їх у зошит:<br>
+  <i>Свині + пасти, земля + трусити, ясний + очі, місяць + ходити, хліб + робити.</i><br>Потім перевір себе тут 👇`
+},
+
+"1-tue-math":{
+  topic:"Швидкість, час, відстань. Задачі на рух",
+  src:"Підручник: с. 81–88",
+  summary:"Дізнаємося, що таке швидкість, і вчимося знаходити швидкість, відстань і час руху.",
+  theory:`<p><b>Швидкість</b> — це шлях, який проходить об'єкт за одиницю часу (1 год, 1 хв, 1 с). Записуємо скорочено: <b>км/год</b>, <b>м/хв</b>, <b>м/с</b>.</p>
+  <p>Щогодини літак пролітає 800 км — отже, його швидкість <b>800 км/год</b>.</p>
+  <table>
+   <tr><th>Позначка</th><th>Що це</th><th>Як знайти</th></tr>
+   <tr><td><b>v</b></td><td>швидкість</td><td><b>v = s : t</b><br>відстань поділити на час</td></tr>
+   <tr><td><b>s</b></td><td>відстань</td><td><b>s = v · t</b><br>швидкість помножити на час</td></tr>
+   <tr><td><b>t</b></td><td>час</td><td><b>t = s : v</b><br>відстань поділити на швидкість</td></tr>
+  </table>
+  <p><b>Приклади з підручника:</b></p>
+  <ul>
+   <li>Турист за 3 год пройшов 15 км. Швидкість: 15 : 3 = <b>5 км/год</b>.</li>
+   <li>Турист 3 год ішов зі швидкістю 5 км/год. Відстань: 5 · 3 = <b>15 км</b>.</li>
+   <li>Турист пройшов 15 км зі швидкістю 5 км/год. Час: 15 : 5 = <b>3 год</b>.</li>
+  </ul>
+  <p>💡 Підказка-трикутник: зверху <b>s</b>, знизу <b>v</b> і <b>t</b>. Закрий пальцем те, що шукаєш: якщо <b>s</b> — лишаються <b>v · t</b>; якщо <b>v</b> — лишається <b>s : t</b>; якщо <b>t</b> — <b>s : v</b>.</p>
+  <div class="col">      s
+    ─────
+    v · t</div>`,
+  ex:[
+    {type:"select", q:"Обери правильну формулу.",
+     hint:"Подивись на таблицю в «Пригадаймо» або на трикутник.",
+     items:[["Швидкість:",["v = s · t","v = s : t","v = t : s"],1],["Відстань:",["s = v : t","s = v · t","s = t : v"],1],["Час:",["t = s · v","t = v : s","t = s : v"],2]]},
+    {type:"fill", q:"Продовж міркування (с. 81–82, №3).",
+     lines:["Щосекунди ракета пролітає 7 км — її швидкість [[7]] км/с","Щогодини автобус проїжджає 68 км — його швидкість [[68]] км/год","Щохвилини равлик проповзає 6 см — його швидкість [[6]] см/хв"]},
+    {type:"fill", q:"Знайди швидкість (с. 82, №4–5).",
+     hint:"Швидкість = відстань : час.",
+     lines:["За 4 год автобус проїхав 240 км. Швидкість: 240 : 4 = [[60]] км/год",
+            "Мотоцикліст за 2 год проїхав 80 км: [[40]] км/год",
+            "Велосипедистка за 2 год проїхала 30 км: [[15]] км/год",
+            "Швидкість мотоцикліста більша на [[25]] км/год"]},
+    {type:"fill", q:"Постав запитання і розв'яжи (с. 82, №6–7).",
+     hint:"Гелікоптер летів 240 км/год, а авто — утричі повільніше. «Утричі повільніше» — значить поділити на 3.",
+     lines:["Шпак пролетів за 2 год 120 км. Його швидкість: [[60]] км/год","Ворона пролетіла за 2 год 80 км. Її швидкість: [[40]] км/год","Гелікоптер — 240 км/год, автомобіль утричі повільніший: [[80]] км/год"]},
+    {type:"fill", q:"Знайди відстань (с. 83, №3–4).",
+     hint:"Відстань = швидкість · час.",
+     lines:["Велосипедист їхав 4 год зі швидкістю 20 км/год: [[80]] км","Лелека летів 3 год зі швидкістю 60 км/год: [[180]] км","Вантажівка їхала 4 год зі швидкістю 70 км/год: [[280]] км","Електропоїзд їхав 2 год зі швидкістю 90 км/год: [[180]] км"]},
+    {type:"fill", q:"Знайди час (с. 85, №2–3).",
+     hint:"Час = відстань : швидкість.",
+     lines:["Автомобіль проїхав 120 км зі швидкістю 60 км/год: [[2]] год","Вантажівка проїхала 180 км зі швидкістю 60 км/год: [[3]] год","Ворона пролетіла 120 км зі швидкістю 40 км/год: [[3]] год","Шпак пролетів 90 км зі швидкістю 30 км/год: [[3]] год"]},
+    {type:"fill", q:"За таблицею знайди час (с. 85, №4-А).",
+     lines:["Кінь: 12 м/с, 24 м → [[2]] с","Орел: 30 м/с, 90 м → [[3]] с","Сокіл: 30 м/с, 120 м → [[4]] с","Грак: 10 м/с, 40 м → [[4]] с"]},
+    {type:"fill", q:"Складені задачі на рух (с. 87, №2 і №4).",
+     hint:"Розв'язуй по діях: спочатку кожна частина шляху окремо, а потім разом.",
+     lines:["<b>Турист</b> ішов 2 год зі швидкістю 4 км/год, а потім 3 год — 5 км/год.","1) 4 · 2 = [[8]] км","2) 5 · 3 = [[15]] км","3) Разом: [[23]] км",
+            "<b>Кінь</b> пробіг 30 км зі швидкістю 15 км/год, а потім 40 км — 10 км/год.","1) 30 : 15 = [[2]] год","2) 40 : 10 = [[4]] год","3) Увесь шлях — за [[6]] год"]},
+    {type:"fill", q:"Розв'яжи за планом (с. 88, №6). Прогулянковий катер за 4 год пройшов 80 км, а буксирний за 2 год — 30 км. Чия швидкість більша і на скільки?",
+     lines:["Швидкість прогулянкового катера: [[20]] км/год","Швидкість буксирного катера: [[15]] км/год","Прогулянковий швидший на [[5]] км/год"]},
+    {type:"select", hw:true, q:"Перевір домашнє — №8: де поставили дужки?",
+     items:[["600 – 400 : 100 = 2 →",["(600 – 400) : 100","600 – (400 : 100)"],0],
+            ["2000 + 400 : 2 : 100 = 22 →",["(2000 + 400) : 2 : 100","(2000 + 400 : 2) : 100"],1],
+            ["30 + 240 : 10 = 27 →",["30 + (240 : 10)","(30 + 240) : 10"],1],
+            ["15 000 – 1000 · 5 : 100 = 100 →",["(15 000 – 1000 · 5) : 100","(15 000 – 1000) · 5 : 100"],0]]},
+    {type:"fill", hw:true, q:"Перевір домашнє — №9.",
+     lines:["1) 360 : 60 = [[6]] год","2) 210 : 70 = [[3]] год","3) Увесь шлях — за [[9]] год"]}
+  ],
+  hw:`<b>Підручник, с. 88, №8 і №9.</b>
+  <p><b>№8.</b> Постав у виразах дужки так, щоб рівності стали правильними:<br>600 – 400 : 100 = 2<br>2000 + 400 : 2 : 100 = 22<br>30 + 240 : 10 = 27<br>15 000 – 1000 · 5 : 100 = 100</p>
+  <p><b>№9.</b> Легковий автомобіль проїхав 360 км зі швидкістю 60 км/год, а потім іще 210 км зі швидкістю 70 км/год. За який час легковий автомобіль подолав увесь шлях?</p>
+  <p>Розв'яжи в зошиті, а потім перевір відповіді тут 👇</p>`
+},
+
+"1-tue-ukr":{
+  topic:"Діагностувальна робота «Будова слова»",
+  src:"Зошит для діагностувальних робіт: с. 9",
+  summary:"Сьогодні ти пишеш діагностувальну роботу. У тебе все вийде! 💪",
+  test:`Виконай діагностувальну роботу в <b>зошиті для діагностувальних робіт, с. 9</b>.<br><br>
+   Перед роботою ще раз переглянь правила з понеділка: <a href="#w1-mon-ukr">урок «Будова слова» →</a><br><br>
+   ✔ Уважно прочитай кожне завдання.<br>✔ Розбираючи слово, спочатку зміни його форму (знайди закінчення), потім добери споріднені слова (знайди корінь).<br>✔ Наприкінці перевір свою роботу.`,
+  theory:`<p><b>Коротко пригадаймо:</b></p>
+  <p><b>префікс</b> ⌐ — перед коренем; <b>корінь</b> ⌒ — спільна частина споріднених слів; <b>суфікс</b> ^ — після кореня; <b>закінчення</b> □ — змінна частина; <b>основа</b> — слово без закінчення.</p>
+  <p>Перед <b>к, п, т, ф, х</b> пишемо префікс <b>с-</b> («Кафе «Птах»»), перед іншими — <b>з-</b>.</p>`,
+  ex:[],
+  hw:"Домашнього завдання немає 🙂"
+},
+
+"1-tue-eng":{
+  topic:"Unit 9. Magnus and Claudia had an accident!",
+  src:"Pupil's Book: с. 30–31",
+  summary:"Нові слова про ферму і неправильні дієслова в минулому часі (Past Simple).",
+  theory:`<p><b>New words — нові слова</b></p>
+  <table>
+   <tr><th></th><th>Word</th><th>Читаємо</th><th>Переклад</th></tr>
+   <tr><td>🚜</td><td><b>farm</b></td><td>[фам]</td><td>ферма</td></tr>
+   <tr><td>🐄</td><td><b>cow</b></td><td>[кау]</td><td>корова</td></tr>
+   <tr><td>🌿</td><td><b>grass</b></td><td>[грас]</td><td>трава</td></tr>
+   <tr><td>🦉</td><td><b>owl</b></td><td>[аул]</td><td>сова</td></tr>
+   <tr><td>🦆</td><td><b>pond</b></td><td>[понд]</td><td>ставок</td></tr>
+   <tr><td>🐂</td><td><b>bull</b></td><td>[бул]</td><td>бик</td></tr>
+  </table>
+  <p><b>Learn with Oscar — неправильні дієслова</b></p>
+  <p>Деякі дієслова в минулому часі не мають закінчення <b>-ed</b>, а змінюються повністю. Їх треба запам'ятати!</p>
+  <table>
+   <tr><th>Зараз</th><th>Учора (Past)</th><th>Переклад</th></tr>
+   <tr><td>see</td><td><b>saw</b> [со]</td><td>бачити — побачив</td></tr>
+   <tr><td>go</td><td><b>went</b> [вент]</td><td>іти — пішов</td></tr>
+   <tr><td>hear</td><td><b>heard</b> [хьорд]</td><td>чути — почув</td></tr>
+   <tr><td>have</td><td><b>had</b> [хед]</td><td>мати — мав</td></tr>
+   <tr><td>drive</td><td><b>drove</b> [дроув]</td><td>їхати (кермувати) — поїхав</td></tr>
+   <tr><td>fall</td><td><b>fell</b> [фел]</td><td>падати — упав</td></tr>
+  </table>
+  <p>Magnus drives badly. Yesterday he <b>drove</b> into a tree! 🌳🚗</p>`,
+  ex:[
+    {type:"select", q:"Match the words. З'єднай слово з перекладом.",
+     items:[["🚜 farm —",["сова","ферма","трава"],1],["🐄 cow —",["корова","бик","ставок"],0],["🌿 grass —",["трава","ферма","сова"],0],["🦉 owl —",["бик","сова","корова"],1],["🦆 pond —",["трава","ставок","ферма"],1],["🐂 bull —",["бик","корова","сова"],0]]},
+    {type:"fill", q:"Write the past. Напиши дієслово в минулому часі.",
+     hint:"Подивись на таблицю Learn with Oscar у «Пригадаймо».",
+     lines:["see → [[saw]]","go → [[went]]","hear → [[heard]]","have → [[had]]","drive → [[drove]]","fall → [[fell]]"]},
+    {type:"select", q:"Read the story and correct one word (с. 31, вправа 1). Знайди в історії правильне слово.",
+     hint:"Перечитай комікс на с. 30: куди врізався Magnus? Що сталося у ставку? Які вони були — веселі чи сердиті? Хто був на фермі замість мишки?",
+     items:[["1. Claudia and Magnus went to a <s>shop</s>",["farm","pond","tree"],0],
+            ["2. Magnus <s>walked</s> into a tree.",["fell","drove","went"],1],
+            ["3. They <s>swam</s> in a duck pond.",["fell","saw","had"],0],
+            ["4. They were wet and <s>happy</s>.",["angry","tired","cold"],0],
+            ["5. There were cows, ducks, an owl, a horse and a <s>mouse</s> on the farm.",["cat","bull","dog"],1]]},
+    {type:"select", q:"Choose and write (с. 31, вправа 3). Обери потрібне слово: had, drove, fell, heard, saw, went.",
+     items:[["Last night we (1)",["drove","fell","had"],0," to the farm"],
+            ["and we (2)",["heard","saw","went"],1," an old woman. We asked her for a room for the night."],
+            ["We (3)",["had","went","fell"],0," some bread and milk"],
+            ["and then we (4)",["saw","went","drove"],1," to bed."],
+            ["We (5)",["had","heard","drove"],1," lots of strange noises"],
+            ["but we were tired and we (6)",["fell","saw","went"],0," asleep very quickly!"]]},
+    {type:"fill", hw:true, q:"Перевір себе: чи вивчила ти слова? Напиши англійською.",
+     hint:"Спершу потренуйся з картками вище.",
+     lines:["корова — [[cow]]","сова — [[owl]]","ставок — [[pond]]","бик — [[bull]]","трава — [[grass]]","ферма — [[farm]]"]},
+    {type:"fill", hw:true, q:"А тепер — неправильні дієслова.",
+     lines:["побачив (see) — [[saw]]","пішов (go) — [[went]]","почув (hear) — [[heard]]","мав (have) — [[had]]","поїхав (drive) — [[drove]]","упав (fall) — [[fell]]"]}
+  ],
+  hw:`<b>Вивчи нові слова й неправильні дієслова</b> з таблиці Learn with Oscar (с. 31). Натискай на картку — вона перевернеться. Коли все запам'ятаєш, перевір себе нижче 👇`,
+  cards:[["🚜 farm","ферма"],["🐄 cow","корова"],["🌿 grass","трава"],["🦉 owl","сова"],["🦆 pond","ставок"],["🐂 bull","бик"],
+         ["see","saw"],["go","went"],["hear","heard"],["have","had"],["drive","drove"],["fall","fell"]]
+},
+
+"1-tue-yds":{
+  topic:"Будова рослин. Лікарські та отруйні рослини",
+  src:"Підручник: с. 98–99 · Зошит: с. 41–43",
+  summary:"Пригадуємо, з яких частин складається рослина і навіщо кожна частина. Вчимося розрізняти лікарські й отруйні рослини.",
+  theory:`<p><b>🌱 Будова квіткової рослини</b></p>
+  <table>
+   <tr><th>Частина</th><th>Що робить</th></tr>
+   <tr><td>🌸 <b>Квітка</b></td><td>запилюється, з неї утворюється плід та насіння</td></tr>
+   <tr><td>🍃 <b>Листя</b></td><td>забезпечує фотосинтез</td></tr>
+   <tr><td>🌿 <b>Стебло</b></td><td>по ньому вода і поживні речовини надходять до всіх частин рослини</td></tr>
+   <tr><td>🟫 <b>Корінь</b></td><td>утримує рослину на місці, вбирає воду та поживні речовини з ґрунту</td></tr>
+   <tr><td>🍎 <b>Плід</b></td><td>захищає насіння</td></tr>
+   <tr><td>🌰 <b>Насіння</b></td><td>з нього виростають нові рослини</td></tr>
+  </table>
+  <p><b>💚 Лікарські рослини</b> — ними люди здавна лікують деякі хвороби: <i>кропива, ромашка, м'ята, лопух, подорожник, малина, чорниця</i>.</p>
+  <p><b>☠️ Отруйні рослини</b> — небезпечні! До деяких не можна навіть торкатися або наближатися: <i>цикута, борщівник, вовчі ягоди, беладона</i>.</p>
+  <p>⚠️ Ніколи не куштуй незнайомі ягоди й рослини і не зривай їх без дорослих!</p>`,
+  ex:[
+    {type:"select", q:"Яку роботу виконує кожна частина рослини?",
+     items:[["🌸 Квітка —",["забезпечує фотосинтез","запилюється, утворюється плід і насіння","захищає насіння"],1],
+            ["🍃 Листя —",["забезпечує фотосинтез","вбирає воду з ґрунту","з нього виростають нові рослини"],0],
+            ["🌿 Стебло —",["захищає насіння","по ньому вода і поживні речовини йдуть до всіх частин","запилюється"],1],
+            ["🟫 Корінь —",["утримує рослину, вбирає воду та поживні речовини","забезпечує фотосинтез","захищає насіння"],0],
+            ["🍎 Плід —",["вбирає воду","захищає насіння","забезпечує фотосинтез"],1],
+            ["🌰 Насіння —",["з нього виростають нові рослини","утримує рослину на місці","запилюється"],0]]},
+    {type:"choice", q:"Яку частину рослини ми їмо, коли їмо моркву?",
+     options:["плід","корінь","листя"], answer:1},
+    {type:"choice", q:"Яку частину рослини ми їмо, коли їмо яблуко?",
+     options:["плід","стебло","корінь"], answer:0},
+    {type:"choice", q:"Яка з цих рослин — лікарська?",
+     options:["цикута","кропива","вовчі ягоди"], answer:1},
+    {type:"choice", q:"Яка з цих рослин — отруйна?",
+     options:["подорожник","м'ята","борщівник"], answer:2},
+    {type:"tf", q:"Борщівник можна зривати руками — він безпечний.", answer:false,
+     hint:"Перечитай с. 99: до деяких отруйних рослин не можна навіть торкатися."},
+    {type:"select", hw:true, q:"Перевір домашнє — зошит, с. 42, №4. Етапи життєвого циклу рослини по порядку:",
+     items:[["Насіння —",["1","2","3","4","5"],0],["Паросток —",["1","2","3","4","5"],1],["Молода рослина —",["1","2","3","4","5"],2],["Квітка —",["1","2","3","4","5"],3],["Плід —",["1","2","3","4","5"],4]]},
+    {type:"select", hw:true, q:"Перевір домашнє — зошит, с. 42, №5. Л — лікарська, О — отруйна.",
+     items:[["Ромашка",["Л","О"],0],["Цикута",["Л","О"],1],["Борщівник",["Л","О"],1],["Чорниця",["Л","О"],0],["Вовчі ягоди",["Л","О"],1],["Малина",["Л","О"],0],["М'ята",["Л","О"],0],["Беладона",["Л","О"],1]]},
+    {type:"fill", hw:true, q:"Перевір домашнє — зошит, с. 43, №6 (задачі про полуницю).",
+     lines:["8 рядків по 14 кущів: [[112]] кущів","118 кущів по 120 г: [[14160]] г, тобто [[14]] кг [[160]] г","Цукру на 7 кг полуниці: [[5600]] г, тобто [[5]] кг [[600]] г"]}
+  ],
+  hw:`<b>Робочий зошит, с. 41–43</b>, завдання 3–6:
+  <p><b>№3</b> (с. 41) — підпиши частини рослини і запиши їхні функції (підказка — у таблиці «Пригадаймо» вгорі).<br>
+  <b>№4</b> (с. 42) — пронумеруй і підпиши етапи життєвого циклу.<br>
+  <b>№5</b> (с. 42) — познач лікарські рослини літерою Л, отруйні — літерою О.<br>
+  <b>№6</b> (с. 43) — розв'яжи задачі про полуницю.</p>
+  <p>Коли виконаєш — перевір відповіді тут 👇</p>`
+}
+
+};
+
+/* ================= ЗБЕРЕЖЕННЯ ПРОГРЕСУ ================= */
+let store={};
+try{ store=JSON.parse(localStorage.getItem("polina-progress")||"{}"); }catch(e){}
+function save(){ try{ localStorage.setItem("polina-progress",JSON.stringify(store)); }catch(e){} }
+function rec(key){ return store[key]||(store[key]={ex:{},done:false}); }
+
+const WEEKS=[1,2,3,4];
+const $app=document.getElementById("app");
+const toast=t=>{const e=document.getElementById("toast");e.textContent=t;e.classList.add("on");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("on"),2200)};
+
+/* ================= МАРШРУТИ (#w1, #w1-mon, #w1-mon-math) ================= */
+function route(){
+  const h=location.hash.slice(1);
+  const m=h.match(/^w(\d+)(?:-(\w+))?(?:-(\w+))?$/);
+  if(!m) return home();
+  const w=+m[1], d=m[2], s=m[3];
+  if(s) return lesson(w,d,s);
+  if(d) return day(w,d);
+  return week(w);
+}
+window.addEventListener("hashchange",()=>{route();scrollTo(0,0)});
+
+function lessonState(w,d,s){
+  const k=`${w}-${d}-${s}`;
+  if(!LESSONS[k]) return "soon";
+  return store[k]&&store[k].done?"done":"open";
+}
+const mainEx = L => L.ex.filter(e=>!e.hw);
+
+function home(){
+  let html=`<h2 style="margin:4px 0 12px">Обери тиждень</h2><div class="grid">`;
+  WEEKS.forEach(w=>{
+    let tot=0,dn=0,any=false;
+    DAYS.forEach(d=>d.subj.forEach(s=>{const st=lessonState(w,d.id,s); if(st!=="soon"){any=true;tot++; if(st==="done")dn++;}}));
+    const range=weekRange(w);
+    html+=`<a class="tile ${any?"":"soon"}" href="#w${w}">
+      <span class="ic" style="background:#efebff">📅</span>
+      <span><b>Тиждень ${w}</b><small>${range?range+" · ":""}${any?`виконано ${dn} з ${tot}`:"скоро з'явиться"}</small>
+      ${any?`<div class="prog" style="width:160px"><i style="width:${tot?dn/tot*100:0}%"></i></div>`:""}</span>
+      <span class="st">${any&&dn===tot?"⭐":"›"}</span></a>`;
+  });
+  html+=`</div><div class="card" style="margin-top:18px"><h3>📨 Звіт для вчительки</h3>
+  <p class="note">Натисни кнопку — і надішли текст вчительці в месенджер.</p>
+  <button class="btn" onclick="report()">Скопіювати звіт</button>
+  <textarea class="report" id="rep" readonly style="margin-top:10px;display:none"></textarea></div>`;
+  $app.innerHTML=html;
+}
+
+function week(w){
+  const range=weekRange(w);
+  let html=`<div class="crumbs"><a href="#">🏠 Тижні</a> › Тиждень ${w}${range?" · "+range:""}</div><div class="grid">`;
+  DAYS.forEach((d,i)=>{
+    const sts=d.subj.map(s=>lessonState(w,d.id,s));
+    const avail=sts.filter(x=>x!=="soon").length, dn=sts.filter(x=>x==="done").length;
+    const dt=dayDate(w,i);
+    html+=`<a class="tile ${avail?"":"soon"}" href="#w${w}-${d.id}">
+      <span class="ic" style="background:#efebff">${d.short}</span>
+      <span><b>${d.name}${dt?`, ${fmt(dt)}`:""}</b><small>${d.subj.map(s=>SUBJ[s].ic).join(" ")} · ${avail?`${dn}/${avail} виконано`:"скоро"}</small></span>
+      <span class="st">${avail&&dn===avail?"✅":"›"}</span></a>`;
+  });
+  $app.innerHTML=html+"</div>";
+}
+
+function day(w,did){
+  const i=DAYS.findIndex(x=>x.id===did), d=DAYS[i]; if(!d) return home();
+  const dt=dayDate(w,i);
+  let html=`<div class="crumbs"><a href="#">🏠 Тижні</a> › <a href="#w${w}">Тиждень ${w}</a> › ${d.name}${dt?", "+fmt(dt):""}</div><div class="grid">`;
+  d.subj.forEach(s=>{
+    const st=lessonState(w,did,s), L=LESSONS[`${w}-${did}-${s}`];
+    html+=`<a class="tile ${st==="soon"?"soon":""}" href="#w${w}-${did}-${s}">
+      <span class="ic" style="background:${SUBJ[s].bg}">${SUBJ[s].ic}</span>
+      <span><b>${SUBJ[s].name}</b><small>${L?L.topic:"Урок ще готується"}</small></span>
+      <span class="st">${st==="done"?"✅":"›"}</span></a>`;
+  });
+  $app.innerHTML=html+"</div>";
+}
+
+function lesson(w,did,s){
+  const d=DAYS.find(x=>x.id===did), S=SUBJ[s], key=`${w}-${did}-${s}`, L=LESSONS[key];
+  let html=`<div class="crumbs"><a href="#">🏠</a> › <a href="#w${w}">Тиждень ${w}</a> › <a href="#w${w}-${did}">${d?d.name:""}</a> › ${S?S.name:""}</div>`;
+  if(!L||!S){ $app.innerHTML=html+`<div class="card"><h2>Урок ще готується 🛠️</h2><p>Зазирни трохи пізніше!</p></div>`; return; }
+  const r=rec(key);
+  html+=`<div class="card"><span class="badge" style="background:${S.c}">${S.ic} ${S.name}</span>
+    <h2>${L.topic}</h2>${L.src?`<div class="src">📘 ${L.src}</div>`:""}<p>${L.summary}</p>
+    <div class="theory"><b>📖 Пригадаймо</b>${L.theory}</div></div>`;
+  if(L.test) html+=`<div class="card test"><h3>📝 Діагностувальна робота</h3><p>${L.test}</p></div>`;
+  let first=true;
+  if(mainEx(L).length){
+    html+=`<div class="card"><h3>✏️ ${L.test?"Тренування":"Вправи"}</h3>`;
+    L.ex.forEach((e,i)=>{ if(e.hw) return; html+=exBlock(e,i,first); first=false; });
+    html+=`</div>`;
+  }
+  html+=`<div class="card hw"><h3>🏠 Домашнє завдання</h3><div>${L.hw}</div>`;
+  if(L.cards) html+=`<div class="cards">${L.cards.map(c=>`<button class="fc" onclick="this.classList.toggle('flip')"><span class="f">${c[0]}</span><span class="b">${c[1]}</span></button>`).join("")}</div>`;
+  first=true;
+  L.ex.forEach((e,i)=>{ if(!e.hw) return; html+=exBlock(e,i,true); });
+  html+=`</div><button class="btn done-btn" style="background:${r.done?"var(--ok)":"var(--accent)"}" onclick="finish('${key}')">${r.done?"✅ Урок виконано":"Я виконала урок!"}</button>`;
+  $app.innerHTML=html;
+  window.__cur={key,L};
+  L.ex.forEach((e,i)=>{ if(r.ex[i]&&r.ex[i].ok){ const f=document.getElementById("fb"+i); f.className="fb ok"; f.textContent="✔ Вже виконано"; } });
+}
+function exBlock(e,i,first){
+  return `<div class="ex ${first?"first":""}" id="ex${i}">${renderEx(e,i)}<div class="row"><button class="btn ghost" onclick="check(${i})">Перевірити</button></div><div class="fb" id="fb${i}"></div></div>`;
+}
+
+function renderEx(e,i){
+  let h=`<div class="q">${e.q}</div>`;
+  if(e.text) h+=`<div class="read">${e.text}</div>`;
+  if(e.hint) h+=`<details class="hint"><summary>💡 Підказка</summary><div>${e.hint}</div></details>`;
+  if(e.type==="choice") h+=`<div class="opts">${e.options.map((o,j)=>`<button class="opt" data-v="${j}" onclick="pick(this)">${o}</button>`).join("")}</div>`;
+  if(e.type==="tf") h+=`<div class="opts"><button class="opt" data-v="1" onclick="pick(this)">👍 Правда</button><button class="opt" data-v="0" onclick="pick(this)">👎 Неправда</button></div>`;
+  if(e.type==="roman"){
+    h+=e.build.map((b,j)=>`<div class="rb"><div class="row"><b style="min-width:42px">${b[0]} =</b><span class="rdisp ans" id="rb${i}_${j}" data-a="${b[1]}"></span></div>
+      <div class="rkeys">${["I","V","X","L","C"].map(c=>`<button class="rk" onclick="rk(${i},${j},'${c}')">${c}</button>`).join("")}<button class="rk del" onclick="rk(${i},${j},'⌫')">⌫</button></div></div>`).join("");
+  }
+  if(e.type==="fill"||e.type==="roman"){
+    if(!e.lines) return h;
+    let k=0;
+    h+=e.lines.map(line=>`<div class="row">${line.replace(/\[\[(.+?)\]\]/g,(_,a)=>{const id=`in${i}_${k++}`;const w=Math.max(2,a.split("|")[0].length);return `<input class="ans sm" style="width:${Math.min(160,40+w*13)}px" id="${id}" data-a="${a.replace(/"/g,"&quot;")}" autocomplete="off" autocapitalize="characters" spellcheck="false">`;})}</div>`).join("");
+  }
+  if(e.type==="select") h+=e.items.map((it,j)=>`<div class="row"><span>${it[0]}</span><select class="ans" id="in${i}_${j}"><option value="">— обери —</option>${it[1].map((o,k)=>`<option value="${k}">${o}</option>`).join("")}</select>${it[3]?`<span>${it[3]}</span>`:""}</div>`).join("");
+  return h;
+}
+function rk(i,j,c){ const d=document.getElementById(`rb${i}_${j}`); d.classList.remove("right","wrong"); d.textContent = c==="⌫" ? d.textContent.slice(0,-1) : (d.textContent.length<9 ? d.textContent+c : d.textContent); }
+function pick(b){ b.parentNode.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel","right","wrong")); b.classList.add("sel"); }
+
+/* порівняння відповідей: регістр, пробіли, апостроф; українські Х С І М → латинські (для римських цифр) */
+const LOOK={"х":"x","с":"c","і":"i","м":"m"};
+function norm(s,roman){
+  s=String(s).toLowerCase().replace(/[’'`ʼ]/g,"'").replace(/\s+/g," ").trim();
+  if(roman) s=s.replace(/[хсім]/g,ch=>LOOK[ch]);
+  if(/^[\d ]+$/.test(s)) s=s.replace(/ /g,"");
+  return s;
+}
+const isRoman=a=>/^[ivxlcdm]+$/i.test(a);
+
+function check(i){
+  const {key,L}=window.__cur, e=L.ex[i], fb=document.getElementById("fb"+i); let ok=true, empty=false;
+  if(e.type==="choice"||e.type==="tf"){
+    const sel=document.querySelector(`#ex${i} .opt.sel`);
+    if(!sel) empty=true; else {
+      const v=+sel.dataset.v, right=e.type==="tf"?(v===1)===e.answer:v===e.answer;
+      sel.classList.add(right?"right":"wrong"); ok=right;
+    }
+  } else {
+    document.querySelectorAll(`#ex${i} .ans`).forEach(el=>{
+      if(el.tagName==="SPAN"){ const v=el.textContent; if(!v){empty=true;return;} const right=v===el.dataset.a; el.classList.remove("right","wrong"); el.classList.add(right?"right":"wrong"); if(!right) ok=false; return; }
+      if(!el.value){empty=true;return;}
+      let right;
+      if(el.tagName==="SELECT"){ const j=+el.id.split("_")[1]; right=+el.value===e.items[j][2]; }
+      else { const alts=el.dataset.a.split("|"); right=alts.some(a=>norm(el.value,isRoman(a))===norm(a,isRoman(a))); }
+      el.classList.remove("right","wrong"); el.classList.add(right?"right":"wrong"); if(!right) ok=false;
+    });
+  }
+  if(empty){ fb.className="fb no"; fb.textContent="Заповни всі віконця 🙂"; return; }
+  const r=rec(key); const er=r.ex[i]||(r.ex[i]={tries:0,ok:false});
+  er.tries++; if(ok) er.ok=true; save();
+  fb.className="fb "+(ok?"ok":"no");
+  fb.textContent= ok ? ["Молодчинка! 🎉","Правильно! ⭐","Чудово! 👏","Супер! 🌟"][i%4] : (e.hint?"Майже! Червоні віконця виправ — і загляни в підказку 💡":"Майже! Подумай ще раз і спробуй знову 💪");
+}
+
+function finish(key){
+  const r=rec(key), L=LESSONS[key];
+  const idx=L.ex.map((e,i)=>e.hw?-1:i).filter(i=>i>=0);
+  const solved=idx.filter(i=>r.ex[i]&&r.ex[i].ok).length;
+  if(solved<idx.length){ toast(`Виконано ${solved} з ${idx.length} вправ — доробимо?`); return; }
+  r.done=true; r.date=new Date().toLocaleDateString("uk-UA"); save(); toast("Урок виконано! 🌟"); route();
+}
+
+function report(){
+  const lines=["Звіт Поліни 📚"];
+  WEEKS.forEach(w=>DAYS.forEach(d=>d.subj.forEach(s=>{
+    const k=`${w}-${d.id}-${s}`, L=LESSONS[k], r=store[k]; if(!L||!r) return;
+    const idx=L.ex.map((e,i)=>e.hw?-1:i).filter(i=>i>=0), hwi=L.ex.map((e,i)=>e.hw?i:-1).filter(i=>i>=0);
+    const solved=idx.filter(i=>r.ex[i]&&r.ex[i].ok).length;
+    const first=idx.filter(i=>r.ex[i]&&r.ex[i].ok&&r.ex[i].tries===1).length;
+    const hw = hwi.length ? (hwi.every(i=>r.ex[i]&&r.ex[i].ok)?" · ДЗ ✅":" · ДЗ ще не перевірено") : "";
+    const t=L.topic.replace(/[.!?]$/,"")+(/[!?]$/.test(L.topic)?L.topic.slice(-1):"");
+    const exs= idx.length ? ` · вправ ${solved}/${idx.length} (з першої спроби: ${first})` : "";
+    lines.push(`Тиждень ${w}, ${d.name} — ${SUBJ[s].name}: ${t}${exs}${hw}${r.done?" · урок ✅":""}`);
+  })));
+  if(lines.length===1) lines.push("Поки що немає виконаних уроків.");
+  const t=lines.join("\n"), ta=document.getElementById("rep"); ta.style.display="block"; ta.value=t;
+  if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>toast("Скопійовано! Встав у месенджер"),()=>{ta.select();toast("Виділи текст і скопіюй")});
+  else ta.select();
+}
+route();
+</script>
+</body>
+</html>
