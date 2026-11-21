@@ -1061,6 +1061,41 @@ function buy(id){
 }
 
 
+
+/* ================= КОД ЗБЕРЕЖЕННЯ ================= */
+/* Увесь прогрес у коротких латинських символах: POL1~урок|виконано|вправа.спроби.ок,...~S|витрачено|куплене|вдягнуте */
+function saveCode(){
+  const parts=["POL1"];
+  for(const k in store){ if(k==="__shop") continue; const r=store[k]; if(!r||!r.ex) continue;
+    const ex=Object.keys(r.ex).map(i=>`${i}.${r.ex[i].tries}.${r.ex[i].ok?1:0}`).join(",");
+    if(ex||r.done) parts.push(`${k}|${r.done?1:0}|${ex}`); }
+  const sh=shop(); parts.push(`S|${sh.spent}|${sh.owned.join(",")}|${Object.entries(sh.wear).map(([a,b])=>a+"="+b).join(",")}`);
+  return parts.join("~");
+}
+function parseCode(c){
+  c=String(c).replace(/\s+/g,""); const i=c.indexOf("POL1~"); if(i<0) return null; c=c.slice(i);
+  const parts=c.split("~").slice(1), st={};
+  for(const p of parts){ const f=p.split("|");
+    if(f[0]==="S"){ st.__shop={spent:+f[1]||0, owned:f[2]?f[2].split(",").filter(x=>ITEM[x]):[], wear:{}};
+      (f[3]||"").split(",").filter(Boolean).forEach(x=>{const [a,b]=x.split("="); if(ITEM[b]) st.__shop.wear[a]=b;}); continue; }
+    if(!/^\d+-\w+-\w+$/.test(f[0])) return null;
+    const r={done:f[1]==="1",ex:{}}; (f[2]||"").split(",").filter(Boolean).forEach(x=>{const [n,t,o]=x.split("."); r.ex[n]={tries:+t||1,ok:o==="1"};}); st[f[0]]=r; }
+  return st;
+}
+function copySave(){
+  const c=saveCode(), ta=document.getElementById("savebox"); ta.style.display="block"; ta.value=c;
+  if(navigator.clipboard) navigator.clipboard.writeText(c).then(()=>toast("Код скопійовано! Надішли його вчительці 💾"),()=>{ta.select();toast("Виділи код і скопіюй")}); else ta.select();
+}
+let pendingRestore=null;
+function tryRestore(){
+  const v=document.getElementById("restorebox").value, st=parseCode(v), msg=document.getElementById("restoremsg");
+  if(!st){ msg.className="fb no"; msg.textContent="Це не схоже на код збереження. Перевір, чи скопіювала його повністю."; pendingRestore=null; return; }
+  pendingRestore=st; const n=Object.keys(st).filter(k=>k!=="__shop").length;
+  msg.className="fb"; msg.innerHTML=`Знайдено уроків: ${n}. Поточний прогрес на цьому пристрої буде замінено. <button class="btn sm pink" onclick="doRestore()">Так, відновити</button>`;
+}
+function doRestore(){ if(!pendingRestore) return; store=pendingRestore; pendingRestore=null; save(); toast("Прогрес відновлено! 🎉"); route(); }
+try{ navigator.storage&&navigator.storage.persist&&navigator.storage.persist(); }catch(e){}
+
 /* ================= НАВІГАЦІЯ ================= */
 function setHome(h){
   const b=document.getElementById("homeBtn"); if(!b) return;
@@ -1127,7 +1162,14 @@ function home(){
   html+=`</div><div class="card" style="margin-top:18px"><h3>📨 Звіт для вчительки</h3>
   <p class="note">Натисни кнопку — і надішли текст вчительці в месенджер.</p>
   <button class="btn" onclick="report()">Скопіювати звіт</button>
-  <textarea class="report" id="rep" readonly style="margin-top:10px;display:none"></textarea></div>`;
+  <textarea class="report" id="rep" readonly style="margin-top:10px;display:none"></textarea></div>
+  <div class="card"><h3>💾 Збереження прогресу</h3>
+  <p class="note">Галочки, зірочки й аватар зберігаються на цьому телефоні. Щоб нічого не загубилося, у кожному звіті для вчительки є <b>код збереження</b>. Якщо прогрес зникне (або ти відкриєш сайт на іншому пристрої) — встав останній код сюди, і все повернеться.</p>
+  <div class="row"><button class="btn ghost" onclick="copySave()">Скопіювати код</button></div>
+  <textarea class="report" id="savebox" readonly style="display:none;min-height:70px"></textarea>
+  <details class="hint" style="margin-top:8px"><summary>🔄 Відновити прогрес із коду</summary><div style="background:#fff;border-color:var(--line)">
+   <textarea class="report" id="restorebox" placeholder="Встав сюди код, який починається з POL1~" style="min-height:70px"></textarea>
+   <div class="row"><button class="btn" onclick="tryRestore()">Відновити</button></div><div id="restoremsg" class="fb"></div></div></details></div>`;
   $app.innerHTML=html;
 }
 
@@ -1270,6 +1312,7 @@ function report(){
   })));
   if(lines.length===1) lines.push("Поки що немає виконаних уроків.");
   else lines.push(`Зароблено зірочок: ⭐ ${starsEarned()}`);
+  lines.push("", "💾 Код збереження (не видаляйте — ним можна відновити прогрес):", saveCode());
   const t=lines.join("\n"), ta=document.getElementById("rep"); ta.style.display="block"; ta.value=t;
   if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>toast("Скопійовано! Встав у месенджер"),()=>{ta.select();toast("Виділи текст і скопіюй")});
   else ta.select();
