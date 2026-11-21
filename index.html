@@ -129,6 +129,23 @@ body{background-image:radial-gradient(circle at 8% 18%,rgba(44,201,184,.16) 0%,t
 @keyframes fe{0%{transform:translate3d(0,0,0) rotate(-12deg)}50%{transform:translate3d(var(--mx,30px),var(--my,-25px),0) rotate(10deg)}100%{transform:translate3d(calc(var(--mx,30px)*-.5),calc(var(--my,-25px)*-.5),0) rotate(-5deg)}}
 @media (prefers-reduced-motion:reduce){.fe{animation:none}}
 main{position:relative}
+
+.fabs{position:fixed;left:0;right:0;bottom:14px;z-index:25;pointer-events:none;display:flex;justify-content:space-between;align-items:flex-end;padding:0 14px;max-width:760px;margin:0 auto}
+.fab{pointer-events:auto;border:none;font:inherit;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18);text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.fab.home{background:#fff;color:#0f9e90;border:2px solid #b9ebe5;border-radius:999px;padding:10px 16px;font-size:15px}
+.fab.up{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#2cc9b8,#ff7eb6);color:#fff;font-size:26px;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none}
+.fab.up.on{opacity:1;transform:none;pointer-events:auto}
+.fab.home.hide{visibility:hidden}
+main{padding-bottom:90px}
+.lnav{display:flex;gap:10px;margin-top:14px}
+.lnav a{flex:1;text-decoration:none;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:16px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.lnav a small{color:var(--muted);font-size:12px;font-weight:700}
+.lnav a b{font-size:15px;line-height:1.25}
+.lnav a.next{text-align:right;border-color:#ffc6de;background:linear-gradient(135deg,#fff,#ffeef6)}
+.lnav a.empty{visibility:hidden}
+.lnav-top{display:flex;justify-content:space-between;gap:8px;margin:-6px 0 12px}
+.lnav-top a{font-size:13px;font-weight:800;color:#0f9e90;text-decoration:none;background:#fff;border:1px solid #b9ebe5;border-radius:999px;padding:5px 11px}
+.lnav-top a.empty{visibility:hidden}
 </style>
 </head>
 <body>
@@ -139,6 +156,10 @@ main{position:relative}
 </nav></header>
 <main id="app"></main>
 <div class="toast" id="toast"></div>
+<div class="fabs">
+  <a id="homeBtn" class="fab home" href="#">🏠 <span>Головна</span></a>
+  <button id="topBtn" class="fab up" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Нагору">↑</button>
+</div>
 
 <script>
 /* ================= НАЛАШТУВАННЯ ================= */
@@ -1039,10 +1060,34 @@ function buy(id){
   const sh=shop(); sh.owned.push(id); sh.spent+=it.price; sh.wear[it.cat]=id; delete tryOn[it.cat]; save(); updateBar(); toast(`Ура! «${it.name}» — твоє! 🎉`); avatarPage();
 }
 
+
+/* ================= НАВІГАЦІЯ ================= */
+function setHome(h){
+  const b=document.getElementById("homeBtn"); if(!b) return;
+  const m=h.match(/^w(\d+)(?:-(\w+))?(?:-(\w+))?$/);
+  let href="#", label="Головна";
+  if(m&&m[3]){ href=`#w${m[1]}-${m[2]}`; label="Уроки дня"; }
+  else if(m&&m[2]){ href=`#w${m[1]}`; label="Тиждень"; }
+  b.href=href; b.querySelector("span").textContent=label;
+  b.classList.toggle("hide", !h);
+}
+function lessonSeq(w){ const a=[]; DAYS.forEach(d=>d.subj.forEach(s=>{ if(LESSONS[`${w}-${d.id}-${s}`]) a.push({d,s}); })); return a; }
+function lessonNav(w,did,s,top){
+  const seq=lessonSeq(w), i=seq.findIndex(x=>x.d.id===did&&x.s===s);
+  const link=(x,cls,arrow)=>{
+    if(!x) return `<a class="${cls} empty"></a>`;
+    const other=x.d.id!==did, url=`#w${w}-${x.d.id}-${x.s}`;
+    if(top) return `<a class="${cls}" href="${url}">${cls==="prev"?"← ":""}${SUBJ[x.s].ic} ${SUBJ[x.s].name}${other?" ("+x.d.short+")":""}${cls==="next"?" →":""}</a>`;
+    return `<a class="${cls}" href="${url}"><small>${cls==="prev"?"← Попередній урок"+(other?" · "+x.d.name:""):"Наступний урок"+(other?" · "+x.d.name:"")+" →"}</small><b>${SUBJ[x.s].ic} ${SUBJ[x.s].name}</b></a>`;
+  };
+  return `<div class="${top?"lnav-top":"lnav"}">${link(seq[i-1],"prev")}${link(seq[i+1],"next")}</div>`;
+}
+addEventListener("scroll",()=>{ const u=document.getElementById("topBtn"); if(u) u.classList.toggle("on", scrollY>400); },{passive:true});
+
 /* ================= МАРШРУТИ (#w1, #w1-mon, #w1-mon-math) ================= */
 function route(){
   const h=location.hash.slice(1);
-  updateBar();
+  updateBar(); setHome(h);
   if(h==="avatar") return avatarPage();
   tryOn={};
   const m=h.match(/^w(\d+)(?:-(\w+))?(?:-(\w+))?$/);
@@ -1120,6 +1165,7 @@ function lesson(w,did,s){
   let html=`<div class="crumbs"><a href="#">🏠</a> › <a href="#w${w}">Тиждень ${w}</a> › <a href="#w${w}-${did}">${d?d.name:""}</a> › ${S?S.name:""}</div>`;
   if(!L||!S){ $app.innerHTML=html+`<div class="card"><h2>Урок ще готується 🛠️</h2><p>Зазирни трохи пізніше!</p></div>`; return; }
   const r=rec(key);
+  html+=lessonNav(w,did,s,true);
   html+=`<div class="card"><span class="badge" style="background:${S.c}">${S.ic} ${S.name}</span>
     <h2>${L.topic}</h2>${L.src?`<div class="src">📘 ${L.src}</div>`:""}<p>${L.summary}</p>
     <div class="theory"><b>📖 Пригадаймо</b>${L.theory}</div></div>`;
@@ -1135,6 +1181,7 @@ function lesson(w,did,s){
   first=true;
   L.ex.forEach((e,i)=>{ if(!e.hw) return; html+=exBlock(e,i,true); });
   html+=`</div><button class="btn done-btn" style="background:${r.done?"var(--ok)":"var(--accent)"}" onclick="finish('${key}')">${r.done?"✅ Урок виконано":"Я виконала урок!"}</button>`;
+  html+=lessonNav(w,did,s,false);
   $app.innerHTML=html;
   window.__cur={key,L};
   L.ex.forEach((e,i)=>{ if(r.ex[i]&&r.ex[i].ok){ const f=document.getElementById("fb"+i); f.className="fb ok"; f.textContent="✔ Вже виконано"; } });
