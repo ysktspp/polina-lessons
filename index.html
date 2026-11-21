@@ -13,11 +13,6 @@
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Nunito,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.5}
-header{background:linear-gradient(120deg,#2cc9b8 0%,#5fd6c9 45%,#ff8cbc 100%);color:#fff;padding:16px 128px 20px 18px;display:flex;align-items:center;gap:12px}
-header .ht{flex:1;min-width:0}
-header h1,header p{text-shadow:0 1px 2px rgba(0,0,0,.15)}
-header h1{margin:0;font-size:24px;font-weight:800}
-header p{margin:4px 0 0;opacity:.9;font-size:15px}
 main{max-width:760px;margin:0 auto;padding:16px}
 .crumbs{font-size:14px;color:var(--muted);margin:4px 0 14px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .crumbs a{color:var(--accent);text-decoration:none;font-weight:700}
@@ -87,7 +82,7 @@ details.hint div{background:#fffbea;border:1px solid #f3e3a0;border-radius:10px;
 .toast.on{opacity:1}
 textarea.report{width:100%;min-height:140px;font:inherit;font-size:14px;border:2px solid var(--line);border-radius:12px;padding:10px}
 
-#mebar{position:fixed;top:10px;right:10px;z-index:20;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.9);border-radius:999px;padding:4px 12px 4px 4px;text-decoration:none;color:var(--ink);font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.12);flex:none}
+#mebar{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.9);border-radius:999px;padding:4px 12px 4px 4px;text-decoration:none;color:var(--ink);font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.12);flex:none}
 #mebar .mini{width:44px;height:44px;border-radius:50%;overflow:hidden;display:block;background:#fff}
 #mebar .mini svg{width:44px;height:57px;margin-top:-2px}
 #mebar.pop{animation:pop .6s}
@@ -111,14 +106,37 @@ textarea.report{width:100%;min-height:140px;font:inherit;font-size:14px;border:2
 .tag.on{font-weight:800;color:var(--ok);font-size:14px;padding:7px 0}
 .tile.avatar-tile{background:linear-gradient(135deg,#e6faf7,#ffe6f1);border-color:#ffc6de}
 .tile.avatar-tile .ic{background:#fff;overflow:hidden;padding:0}.tile.avatar-tile .ic svg{width:52px;height:68px;margin-top:-4px}
+
+body{background-image:radial-gradient(circle at 8% 18%,rgba(44,201,184,.16) 0%,transparent 38%),radial-gradient(circle at 92% 82%,rgba(255,95,162,.14) 0%,transparent 40%);background-attachment:fixed;min-height:100vh;position:relative;isolation:isolate}
+.topbar{position:sticky;top:10px;z-index:30;max-width:760px;margin:10px auto 0;padding:0 12px}
+.navbar{background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,182,213,.7);border-radius:999px;padding:6px 6px 6px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;box-shadow:0 4px 18px rgba(255,95,162,.12)}
+.brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:17px;color:#0f9e90;text-decoration:none}
+.brand .bi{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#2cc9b8,#ff7eb6);font-size:18px}
+.hero{position:relative;overflow:hidden;text-align:center;border-radius:26px;padding:30px 18px 24px;margin:4px 0 18px;background:linear-gradient(150deg,rgba(255,255,255,.92) 0%,rgba(230,250,247,.9) 55%,rgba(255,236,245,.92) 100%);border:1px solid #ffc6de;box-shadow:0 8px 26px rgba(44,201,184,.14)}
+.hero>*{position:relative;z-index:1}
+.hero::before,.hero::after{content:"";position:absolute;z-index:0;border-radius:47% 53% 61% 39%/45% 38% 62% 55%;filter:blur(16px);pointer-events:none}
+.hero::before{width:240px;height:180px;left:-70px;top:-60px;background:rgba(44,201,184,.32)}
+.hero::after{width:260px;height:200px;right:-80px;bottom:-80px;background:rgba(255,95,162,.3)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #ffc6de;color:#ff3d8b;font-weight:800;font-size:12px;padding:5px 12px;border-radius:999px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.hero h1{margin:0 0 8px;font-size:clamp(30px,8vw,42px);font-weight:900;line-height:1.12;color:#0f9e90}
+.hero h1 span{background:linear-gradient(120deg,#2cc9b8 0%,#ff5fa2 55%,#b56cf0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{color:var(--muted);font-weight:600;margin:0 auto 14px;max-width:460px}
+.hero-slogan{display:inline-block;background:#fff;border:2px dashed #ff9fc4;padding:8px 18px;border-radius:999px;font-weight:800;color:#ff3d8b}
+.hero-deco{position:absolute;z-index:0!important;font-size:44px;opacity:.55;pointer-events:none}
+.hero-deco.l{left:10px;top:12px;transform:rotate(-12deg)}.hero-deco.r{right:10px;top:14px;transform:rotate(12deg)}
+.emoji-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.fe{position:absolute;display:block;opacity:.2;user-select:none;will-change:transform;animation:fe var(--d,18s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes fe{0%{transform:translate3d(0,0,0) rotate(-12deg)}50%{transform:translate3d(var(--mx,30px),var(--my,-25px),0) rotate(10deg)}100%{transform:translate3d(calc(var(--mx,30px)*-.5),calc(var(--my,-25px)*-.5),0) rotate(-5deg)}}
+@media (prefers-reduced-motion:reduce){.fe{animation:none}}
+main{position:relative}
 </style>
 </head>
 <body>
-<header>
-  <div class="ht"><h1>👋 Привіт, Поліно!</h1>
-  <p>Тут наші уроки — коли клас навчається в школі, ти навчаєшся разом з нами тут.</p></div>
+<div class="emoji-bg" aria-hidden="true"></div>
+<header class="topbar"><nav class="navbar">
+  <a class="brand" href="#"><span class="bi">🌸</span><span>Уроки Поліни</span></a>
   <a id="mebar" href="#avatar" title="Мій аватар"></a>
-</header>
+</nav></header>
 <main id="app"></main>
 <div class="toast" id="toast"></div>
 
@@ -491,7 +509,8 @@ const CATS=[
  {id:"bottom",name:"Низ",ic:"👖"},
  {id:"shoes",name:"Взуття",ic:"👟"},
  {id:"acc",name:"Прикраси",ic:"🎀"},
- {id:"pet",name:"Улюбленець",ic:"🐾"},
+ {id:"dog",name:"Песик",ic:"🐶"},
+ {id:"dogwear",name:"Одяг песика",ic:"🦴"},
  {id:"bg",name:"Фон",ic:"🌈"}
 ];
 const ITEMS=[
@@ -526,10 +545,19 @@ const ITEMS=[
  {id:"ac_glasses",cat:"acc",name:"Окуляри",price:25,sw:"👓"},
  {id:"ac_phones",cat:"acc",name:"Навушники",price:40,sw:"🎧"},
  {id:"ac_crown",cat:"acc",name:"Корона",price:100,sw:"👑"},
- {id:"pet_none",cat:"pet",name:"Без улюбленця",price:0,sw:"—"},
- {id:"pet_cat",cat:"pet",name:"Котик",price:60,sw:"🐱"},
- {id:"pet_dog",cat:"pet",name:"Цуценя",price:60,sw:"🐶"},
- {id:"pet_bunny",cat:"pet",name:"Зайчик",price:75,sw:"🐰"},
+ {id:"dog_golden",cat:"dog",name:"Золотистий песик",price:0,col:"#e8c170"},
+ {id:"dog_ginger",cat:"dog",name:"Рудий песик",price:10,col:"#d9893f"},
+ {id:"dog_white",cat:"dog",name:"Білий песик",price:10,col:"#ffffff"},
+ {id:"dog_brown",cat:"dog",name:"Шоколадний песик",price:10,col:"#8a5a36"},
+ {id:"dog_black",cat:"dog",name:"Чорний песик",price:10,col:"#3a3036"},
+ {id:"dog_spot",cat:"dog",name:"Плямистий песик",price:20,sw:"🐕"},
+ {id:"dw_none",cat:"dogwear",name:"Без одягу",price:0,sw:"—"},
+ {id:"dw_bandana",cat:"dogwear",name:"Рожева бандана",price:15,sw:"🩷"},
+ {id:"dw_bow",cat:"dogwear",name:"Бантик для песика",price:15,sw:"🎀"},
+ {id:"dw_sweater",cat:"dogwear",name:"Бірюзовий светрик",price:30,sw:"🧶"},
+ {id:"dw_glasses",cat:"dogwear",name:"Окуляри для песика",price:25,sw:"🕶️"},
+ {id:"dw_party",cat:"dogwear",name:"Святковий ковпачок",price:25,sw:"🥳"},
+ {id:"dw_crown",cat:"dogwear",name:"Коронка для песика",price:60,sw:"👑"},
  {id:"bg_plain",cat:"bg",name:"Ніжно-рожевий",price:0,col:"#ffe3ef"},
  {id:"bg_turq",cat:"bg",name:"Бірюзовий",price:10,col:"#c9f3ee"},
  {id:"bg_stars",cat:"bg",name:"Зоряне небо",price:30,sw:"✨"},
@@ -537,7 +565,7 @@ const ITEMS=[
  {id:"bg_rainbow",cat:"bg",name:"Веселка",price:50,sw:"🌈"}
 ];
 const ITEM=Object.fromEntries(ITEMS.map(x=>[x.id,x]));
-const DEFAULT={hairStyle:"hs_long",hairColor:"hc_brown",top:"top_tee_t",bottom:"bt_jeans",shoes:"sh_white",acc:"ac_none",pet:"pet_none",bg:"bg_plain"};
+const DEFAULT={hairStyle:"hs_long",hairColor:"hc_brown",top:"top_tee_t",bottom:"bt_jeans",shoes:"sh_white",acc:"ac_none",dog:"dog_golden",dogwear:"dw_none",bg:"bg_plain"};
 function wearing(){ return Object.assign({},DEFAULT,shop().wear); }
 function owns(id){ return ITEM[id].price===0 || shop().owned.includes(id); }
 
@@ -602,9 +630,26 @@ function avatarSVG(w){
   if(w.acc==="ac_phones") s+=`<path d="M56 88 Q56 34 100 34 Q144 34 144 88" fill="none" stroke="#ff5fa2" stroke-width="6"/><rect x="48" y="80" width="14" height="22" rx="6" fill="#2cc9b8"/><rect x="138" y="80" width="14" height="22" rx="6" fill="#2cc9b8"/>`;
   if(w.acc==="ac_crown") s+=`<path d="M74 46 L78 22 L90 36 L100 18 L110 36 L122 22 L126 46 Z" fill="#ffd34d" stroke="#e0a400" stroke-width="2"/><circle cx="100" cy="36" r="3.5" fill="#ff5fa2"/><circle cx="84" cy="40" r="2.5" fill="#2cc9b8"/><circle cx="116" cy="40" r="2.5" fill="#2cc9b8"/>`;
   // улюбленці
-  if(w.pet==="pet_cat") s+=`<g transform="translate(142 186) scale(1.3)"><ellipse cx="14" cy="32" rx="16" ry="12" fill="#f4a259"/><circle cx="14" cy="14" r="12" fill="#f4a259"/><path d="M4 6 L5 -6 L12 4 Z M24 6 L23 -6 L16 4 Z" fill="#f4a259"/><circle cx="10" cy="13" r="2" fill="#2d2530"/><circle cx="18" cy="13" r="2" fill="#2d2530"/><path d="M12 18 Q14 20 16 18" stroke="#2d2530" fill="none"/><path d="M29 30 Q40 20 34 12" stroke="#f4a259" stroke-width="4" fill="none" stroke-linecap="round"/></g>`;
-  if(w.pet==="pet_dog") s+=`<g transform="translate(140 186) scale(1.3)"><ellipse cx="16" cy="34" rx="17" ry="12" fill="#c98b5a"/><circle cx="16" cy="16" r="13" fill="#e0b083"/><ellipse cx="4" cy="16" rx="5" ry="10" fill="#8a5a36"/><ellipse cx="28" cy="16" rx="5" ry="10" fill="#8a5a36"/><circle cx="12" cy="14" r="2" fill="#2d2530"/><circle cx="20" cy="14" r="2" fill="#2d2530"/><ellipse cx="16" cy="20" rx="3" ry="2" fill="#2d2530"/></g>`;
-  if(w.pet==="pet_bunny") s+=`<g transform="translate(142 184) scale(1.3)"><ellipse cx="14" cy="36" rx="15" ry="11" fill="#fff" stroke="#e7dbe3"/><circle cx="14" cy="20" r="11" fill="#fff" stroke="#e7dbe3"/><ellipse cx="9" cy="2" rx="4" ry="12" fill="#fff" stroke="#e7dbe3"/><ellipse cx="19" cy="2" rx="4" ry="12" fill="#fff" stroke="#e7dbe3"/><ellipse cx="9" cy="3" rx="1.8" ry="8" fill="#ffc2da"/><ellipse cx="19" cy="3" rx="1.8" ry="8" fill="#ffc2da"/><circle cx="10" cy="19" r="1.8" fill="#2d2530"/><circle cx="18" cy="19" r="1.8" fill="#2d2530"/><circle cx="14" cy="23" r="1.6" fill="#ff7eb6"/></g>`;
+  // песик
+  { const D={dog_golden:["#e8c170","#c99a45","#f6e2b0"],dog_ginger:["#d9893f","#a85d22","#f2c79a"],dog_white:["#ffffff","#e6d6c8","#ffffff"],dog_brown:["#8a5a36","#5e3a20","#c49a76"],dog_black:["#3a3036","#241c20","#7a6a70"],dog_spot:["#ffffff","#5e3a20","#ffffff"]}[w.dog];
+    const [fur,ear,muz]=D, st=(w.dog==="dog_white"||w.dog==="dog_spot")?' stroke="#e2d4cb" stroke-width="1.2"':'';
+    let d=`<g transform="translate(126 188) scale(1.18)">`;
+    d+=`<path d="M50 40 Q60 30 56 20" stroke="${fur}" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+    d+=[12,20,36,44].map(x=>`<rect x="${x}" y="48" width="6" height="11" rx="3" fill="${fur}"${st}/>`).join("");
+    d+=`<ellipse cx="30" cy="44" rx="22" ry="13" fill="${fur}"${st}/>`;
+    if(w.dog==="dog_spot") d+=`<circle cx="36" cy="40" r="5" fill="${ear}"/><circle cx="24" cy="48" r="3.5" fill="${ear}"/><circle cx="44" cy="47" r="3" fill="${ear}"/>`;
+    if(w.dogwear==="dw_sweater") d+=`<path d="M14 36 Q30 30 46 36 L48 50 Q30 56 12 50 Z" fill="#2cc9b8"/><path d="M15 42 Q30 37 46 42" stroke="#fff" stroke-width="2" fill="none"/><path d="M14 47 Q30 42 47 47" stroke="#ff7eb6" stroke-width="2" fill="none"/>`;
+    d+=`<circle cx="20" cy="22" r="15" fill="${fur}"${st}/>`;
+    d+=`<ellipse cx="7" cy="22" rx="6" ry="11" fill="${ear}" transform="rotate(12 7 22)"/><ellipse cx="33" cy="22" rx="6" ry="11" fill="${ear}" transform="rotate(-12 33 22)"/>`;
+    if(w.dog==="dog_spot") d+=`<circle cx="25" cy="14" r="5" fill="${ear}" opacity=".9"/>`;
+    d+=`<ellipse cx="20" cy="29" rx="8" ry="6" fill="${muz}"${st}/><ellipse cx="20" cy="26" rx="3.2" ry="2.3" fill="#2d2530"/><path d="M17 31 Q20 33 23 31" stroke="#2d2530" fill="none" stroke-width="1.2"/><ellipse cx="20" cy="34" rx="2.4" ry="2.8" fill="#ff7eb6"/>`;
+    d+=`<circle cx="15" cy="19" r="2.2" fill="#2d2530"/><circle cx="25" cy="19" r="2.2" fill="#2d2530"/><circle cx="15.7" cy="18.2" r=".8" fill="#fff"/><circle cx="25.7" cy="18.2" r=".8" fill="#fff"/>`;
+    if(w.dogwear==="dw_bandana") d+=`<path d="M8 33 L32 33 L20 46 Z" fill="#ff5fa2"/><circle cx="16" cy="37" r="1.3" fill="#fff"/><circle cx="23" cy="38" r="1.3" fill="#fff"/>`;
+    if(w.dogwear==="dw_bow") d+=`<path d="M20 8 L12 2 L12 14 Z M20 8 L28 2 L28 14 Z" fill="#ff5fa2"/><circle cx="20" cy="8" r="2.6" fill="#ff2e86"/>`;
+    if(w.dogwear==="dw_glasses") d+=`<circle cx="15" cy="19" r="5" fill="rgba(44,201,184,.35)" stroke="#2d2530" stroke-width="1.6"/><circle cx="25" cy="19" r="5" fill="rgba(44,201,184,.35)" stroke="#2d2530" stroke-width="1.6"/><path d="M20 19 L20 19" stroke="#2d2530"/>`;
+    if(w.dogwear==="dw_party") d+=`<path d="M12 10 L20 -12 L28 10 Z" fill="#2cc9b8"/><path d="M14 4 L26 4" stroke="#ff7eb6" stroke-width="2"/><circle cx="20" cy="-12" r="3" fill="#ff5fa2"/>`;
+    if(w.dogwear==="dw_crown") d+=`<path d="M11 9 L12 -3 L17 4 L20 -5 L23 4 L28 -3 L29 9 Z" fill="#ffd34d" stroke="#e0a400" stroke-width="1"/>`;
+    s+=d+`</g>`; }
   return s+`</svg>`;
 }
 
@@ -660,7 +705,12 @@ function lessonState(w,d,s){
 const mainEx = L => L.ex.filter(e=>!e.hw);
 
 function home(){
-  let html=`<a class="tile avatar-tile" href="#avatar" style="margin-bottom:16px"><span class="ic">${avatarSVG(wearing())}</span><span><b>Мій аватар</b><small>У тебе ⭐ ${stars()} — загляни в крамничку!</small></span><span class="st">🛍️</span></a>
+  let html=`<section class="hero"><span class="hero-deco l">📚</span><span class="hero-deco r">🐶</span>
+    <div class="hero-badge">⭐ 4 клас • вчимося разом</div>
+    <h1>Привіт, <span>Поліно!</span> 👋</h1>
+    <p class="hero-sub">Коли клас навчається в школі, ти навчаєшся разом з нами тут. Виконуй завдання, збирай зірочки й наряджай свого аватара та песика!</p>
+    <div class="hero-slogan">«Маленький крок щодня — і все вийде!» 💗</div></section>
+  <a class="tile avatar-tile" href="#avatar" style="margin-bottom:16px"><span class="ic">${avatarSVG(wearing())}</span><span><b>Мій аватар</b><small>У тебе ⭐ ${stars()} — загляни в крамничку!</small></span><span class="st">🛍️</span></a>
   <h2 style="margin:4px 0 12px">Обери тиждень</h2><div class="grid">`;
   WEEKS.forEach(w=>{
     let tot=0,dn=0,any=false;
@@ -820,6 +870,14 @@ function report(){
   if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>toast("Скопійовано! Встав у месенджер"),()=>{ta.select();toast("Виділи текст і скопіюй")});
   else ta.select();
 }
+(()=>{const c=document.querySelector(".emoji-bg"); if(!c) return;
+  const m=innerWidth<700;
+  const set=m?[["📚",-4,6,54],["⭐",80,12,40],["🐶",72,46,50],["✏️",-2,40,46],["🌸",78,74,48],["🎀",4,80,44],["💗",42,92,34],["🦋",44,2,34],["📐",84,30,36]]
+   :[["📚",2,8,80],["⭐",88,6,60],["🐶",86,58,76],["✏️",4,46,64],["🌸",90,82,70],["🎀",6,82,62],["💗",48,92,46],["🦋",46,3,44],["📐",80,32,50],["🌈",18,22,56],["🐾",66,86,48],["🍭",28,70,46]];
+  set.forEach(([e,l,t,sz])=>{const el=document.createElement("span"); el.className="fe"; el.textContent=e; el.style.left=l+"%"; el.style.top=t+"%"; el.style.fontSize=sz+"px";
+    el.style.setProperty("--d",(16+Math.random()*14)+"s"); el.style.setProperty("--dl",(-Math.random()*20)+"s");
+    el.style.setProperty("--mx",((Math.random()<.5?-1:1)*(25+Math.random()*45))+"px"); el.style.setProperty("--my",((Math.random()<.5?-1:1)*(25+Math.random()*45))+"px"); c.appendChild(el);});
+})();
 route();
 </script>
 </body>
